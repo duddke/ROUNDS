@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Back
+    uniqueID: 427072749
+    locked: 0
+  - name: BackBlock
+    uniqueID: 2479140627
+    locked: 0
+  - name: Block
+    uniqueID: 3458071821
+    locked: 0
+  - name: Player
+    uniqueID: 458153837
+    locked: 0
+  - name: Bullet
+    uniqueID: 2055411711
+    locked: 0
+  - name: UI
+    uniqueID: 2587705705
+    locked: 0
