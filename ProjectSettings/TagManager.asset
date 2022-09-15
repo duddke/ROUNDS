@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -11,6 +13,8 @@ TagManager:
   - 
   - Water
   - UI
+  - BackBlock
+  - Block
   - 
   - 
   - 
@@ -32,11 +36,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Bullet
+  - Wall
   m_SortingLayers:
   - name: Default
     uniqueID: 0
