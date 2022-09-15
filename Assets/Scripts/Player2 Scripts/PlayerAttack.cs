@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
         {
             deg = deg + Time.deltaTime * turretSpeed;
-            float rad = deg * Mathf.Deg2Rad;
+            float rad = deg * Mathf.Deg2Rad; // 각도를 라디안으로
             firePos.transform.localPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
             firePos.transform.eulerAngles = new Vector3(0, 0, deg);
         }
