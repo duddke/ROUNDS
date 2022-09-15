@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2753563554427670863}
   - component: {fileID: 2753563554427670857}
   - component: {fileID: 2753563554427670856}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: StayBlock
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
