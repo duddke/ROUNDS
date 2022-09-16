@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4028428089231504919}
   - component: {fileID: 6954392737435071554}
   - component: {fileID: 6954392737435071557}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: BrokenBlock
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

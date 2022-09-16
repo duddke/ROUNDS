@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6297489517481542043}
   - component: {fileID: 6297489517481542040}
   - component: {fileID: 6297489517481542041}
-  m_Layer: 7
+  m_Layer: 31
   m_Name: PhysicsBlock
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
