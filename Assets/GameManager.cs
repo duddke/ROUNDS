@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviourPun
     void Start()
     {
         if (photonView.IsMine)
-            PhotonNetwork.Instantiate("Player1", GameObject.Find("P1_Pos").transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate("Red_Player", GameObject.Find("P1_Pos").transform.position, Quaternion.identity);
         else
-            PhotonNetwork.Instantiate("Player2", GameObject.Find("P2_Pos").transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate("Blue_Player", GameObject.Find("P2_Pos").transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4028428089231504919}
   - component: {fileID: 6954392737435071554}
   - component: {fileID: 6954392737435071557}
-  - component: {fileID: 6272817898170028236}
+  - component: {fileID: 6687379363515695367}
   m_Layer: 31
   m_Name: BrokenBlock
   m_TagString: Wall
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5731508afd8b6f748853af3df9c22406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6272817898170028236
+--- !u!114 &6687379363515695367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,16 +181,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4028428089231504913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1

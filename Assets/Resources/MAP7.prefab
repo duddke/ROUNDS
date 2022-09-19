@@ -3830,7 +3830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2285142375793111372}
-  - component: {fileID: 5982504237368651314}
+  - component: {fileID: 1007149596373381691}
   m_Layer: 0
   m_Name: MAP7
   m_TagString: Untagged
@@ -3862,7 +3862,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5982504237368651314
+--- !u!114 &1007149596373381691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
