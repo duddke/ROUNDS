@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1897020490926971208}
   - component: {fileID: -8855142635795571469}
   - component: {fileID: -4693982684434048116}
+  - component: {fileID: 4966186077230990802}
   m_Layer: 29
   m_Name: Blue_Player
   m_TagString: Player
@@ -175,7 +176,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -4693982684434048116}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -195,6 +197,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &4966186077230990802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897020490926971211}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67535af8b50caf541a2e872559270b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1897020490968529800
 GameObject:
   m_ObjectHideFlags: 0

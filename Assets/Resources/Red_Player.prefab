@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 164619001037149454}
   - component: {fileID: -4843935755508656895}
   - component: {fileID: -6647323464785520521}
+  - component: {fileID: 3411481084145945040}
   m_Layer: 29
   m_Name: Red_Player
   m_TagString: Player
@@ -241,7 +242,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -6647323464785520521}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -261,3 +263,15 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &3411481084145945040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164619001037149441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10692a202a4288e419b18723769763ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

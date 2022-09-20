@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SYA_MAP8Moving : MonoBehaviour
+public class SYA_MAP8Moving : MonoBehaviourPun
 {
     float runTime = 0;
     public float speed = 2;
@@ -19,7 +20,8 @@ public class SYA_MAP8Moving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!photonView.IsMine)
+            return;
         runTime += Time.fixedDeltaTime* speed;
         yPos =MathF.Sin(runTime) * length;
         transform.position = new Vector2(transform.position.x, transform.position.y + yPos);
