@@ -34,22 +34,36 @@ public class SY_FollowBullet : MonoBehaviour
         GuideMissile();
     }
 
+
+    public float creatTime = 1f;
+    public float currentTime;
     void GuideMissile()
     {
-        // 마우스 입력 방향으로
+        // 마우스 입력으로
         Vector2 t_mousePos = m_cam.ScreenToWorldPoint(Input.mousePosition);
-       
-        dir = (target.transform.position  - transform.position);
-        dir.Normalize();
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        rotTarget = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * rotSpeed);
-        rb.velocity = new Vector2(dir.x * speed, dir.y * speed);
+
+        currentTime += Time.deltaTime;
+
+        if(currentTime > creatTime)
+        {
+            dir = (target.transform.position - transform.position);
+            dir.Normalize();
+
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            rotTarget = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            // 회전속도
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * rotSpeed);
+            //rb.velocity = new Vector2(dir.x * speed, dir.y * speed);
+
+            // 총알 속도
+            rb.velocity = transform.right * 20f;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
             //Instantiate(FirePos, transform.position, Quaternion.identity);
-            //Destroy(gameObject);   
+            Destroy(gameObject);   
     }
 }

@@ -40,6 +40,12 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - CreatePlayer
+  - Movement
+  - Jump
+  - OnCollisionEnter2D
+  - WallWalk
+  - LookAtMouse
+  - TryFire
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

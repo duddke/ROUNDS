@@ -19,8 +19,13 @@ public class SY_BounceBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float angle = Mathf.Atan2(rigid.velocity.y*bulletSpeed, rigid.velocity.x * bulletSpeed) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(rigid.velocity.y, rigid.velocity.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, angle);
+        
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        collision.rigidbody.AddForce(new Vector3(300, 300, 0));
     }
 }
