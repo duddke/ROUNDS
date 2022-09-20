@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SY_PlayerMove : MonoBehaviour
+
+public class SY_PlayerMove : MonoBehaviourPun
 {
     [SerializeField]
     float speed = 5f;
@@ -37,6 +39,7 @@ public class SY_PlayerMove : MonoBehaviour
         Jump();
     }
 
+    
     void Movement()
     {
         // 사용자 입력에 따라
@@ -54,6 +57,8 @@ public class SY_PlayerMove : MonoBehaviour
             rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
         else if (rb.velocity.x < -maxSpeed)
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
+
+        //photonView.RPC("Movement", RpcTarget.All);
 
         if (h == 0 && v != 0)
         {
@@ -84,9 +89,10 @@ public class SY_PlayerMove : MonoBehaviour
         //    rb.AddForce(Vector2.up * jumpForce);
         //}
     }
+
     void Jump()
     {
-        if (Input.GetButton("Jump")) //점프 키가 눌렸을 때
+        if (Input.GetButtonDown("Jump")) //점프 키가 눌렸을 때
         {
             if (isJump == false) //점프 중이지 않을 때
             {
@@ -94,6 +100,7 @@ public class SY_PlayerMove : MonoBehaviour
                 isJump = true;
             }
            else return; //점프 중일 때는 실행하지 않고 바로 return.
+
         }
     }
 
@@ -114,6 +121,7 @@ public class SY_PlayerMove : MonoBehaviour
         //transform.localScale = FlipScale;
     }
 
+
     // 벽에 닿으면 위아래로 움직임
     void WallWalk()
     {
@@ -129,8 +137,9 @@ public class SY_PlayerMove : MonoBehaviour
         //  레이에 닿으면 상하로 이동할 수 있다.
         if (rayHit.collider != null)
         {
+            //rb.velocity = Vector2.zero;
             Debug.Log(rayHit.collider.tag);
-
+             
             // 상하로 이동하고 싶다.
             rb.AddForce(Vector2.up * v, ForceMode2D.Impulse);
             isJump = false;
@@ -146,10 +155,14 @@ public class SY_PlayerMove : MonoBehaviour
             
         }
     }
+
+    [PunRPC]
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // 충동하지 않으면
         if (collision.gameObject != null)
         {
+            // 점프 없음
             isJump = false;
             print("ground");
         }
