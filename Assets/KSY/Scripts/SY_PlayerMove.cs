@@ -6,13 +6,13 @@ using Photon.Pun;
 
 public class SY_PlayerMove : MonoBehaviourPun
 {
+
     [SerializeField]
     float speed = 5f;
-    float jumpForce = 10f;
+    float jumpForce = 1.5f;
     float h, v, flipRatio = 1f;
     public float maxSpeed;
     bool isJump;
-    bool isHorizontalMove;
    
     public Vector3 playerDir;
     
@@ -24,6 +24,7 @@ public class SY_PlayerMove : MonoBehaviourPun
     {
         instance = this;
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,10 +34,11 @@ public class SY_PlayerMove : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+
         Movement();
         PlayerFlip();
         WallWalk();
-        Jump();
+        JumpHandle();
     }
 
     
@@ -90,18 +92,25 @@ public class SY_PlayerMove : MonoBehaviourPun
         //}
     }
 
-    void Jump()
+
+
+    void JumpHandle()
     {
         if (Input.GetButtonDown("Jump")) //점프 키가 눌렸을 때
         {
             if (isJump == false) //점프 중이지 않을 때
             {
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //위쪽으로 힘을 준다.
-                isJump = true;
+                Jump();
+                //isJump = true;
             }
            else return; //점프 중일 때는 실행하지 않고 바로 return.
-
         }
+    }
+
+    public void Jump()
+    {
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //위쪽으로 힘을 준다.
+        isJump = true;
     }
 
     // 이동하는 방향으로 바라보기

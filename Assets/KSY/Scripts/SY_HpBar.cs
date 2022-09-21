@@ -38,22 +38,21 @@ public class SY_HpBar : MonoBehaviour
     void Update()
     {
         
+        hpbar.value = (float)curHp / (float)maxHp;
 
         //for (int i = 0; i < m_objectList.Count; i++)
         //{
         //    m_hpBarList[i].transform.position = m_cam.WorldToScreenPoint(m_objectList[i].position + new Vector3(0, 1f, 0));
         //}
-        hpbar.value = (float)curHp / (float)maxHp;
-        if (Input.GetButtonDown("Fire2"))
-        {
-            HandleHp();
-        }
+        //if (Input.GetButtonDown("Fire2"))
+        //{
+        //    HandleHp();
+        //}
     }
 
-    void HandleHp()
+    // 데미지 함수
+    public void HandleHp()
     {
-
-
         curHp -= 10;
         if (curHp <= 0)
         {
@@ -61,14 +60,14 @@ public class SY_HpBar : MonoBehaviour
             curHp = 0;
             print("Die");
         }
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject != null)
+        // 총알에 닿으면 데미지 함수 실행
+        if (collision.gameObject.tag == "Bullet")
         {
-
+            HandleHp();
         }
     }
 
