@@ -12,6 +12,15 @@ EditorBuildSettings:
     path: Assets/SYA_Scenes/SYA_LoadScene.unity
     guid: 2155c1232172fd642904c64b08687b28
   - enabled: 1
+    path: Assets/SYA_Scenes/SYA_MatchingScene.unity
+    guid: 7f27f92e608193b4eb0a8b9e9f86999f
+  - enabled: 1
+    path: Assets/SYA_Scenes/SYA_RedSellectScene.unity
+    guid: 578cdec0819161c4b9d507ae9bb3f49f
+  - enabled: 1
+    path: Assets/SYA_Scenes/SYA_BlueSellectScene.unity
+    guid: 8f814b8f14afdc5458ff7e9eaafa8713
+  - enabled: 1
     path: Assets/SYA_Scenes/SyaScene.unity
     guid: eda9e6cd6c9cb0549ab3869823bade4e
   m_configObjects: {}

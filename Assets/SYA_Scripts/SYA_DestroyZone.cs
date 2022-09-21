@@ -15,7 +15,10 @@ public class SYA_DestroyZone : MonoBehaviourPun
         if (collision.gameObject.layer == 29)
         {
             //데미지 함수
+            collision.GetComponentInChildren<SY_HpBar>().HandleHp();
             //온데미지 점프함수
+            collision.GetComponent<SY_PlayerMove>().Jump();
+
         }
     }
 }

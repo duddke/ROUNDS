@@ -58,7 +58,7 @@ public class SYA_LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("OnJoinedRoom");
-        PhotonNetwork.LoadLevel("SyaScene");
+        PhotonNetwork.LoadLevel("SYA_MatchingScene");
     }
 
     //방 참가가 실패 되었을 때 호출 되는 함수

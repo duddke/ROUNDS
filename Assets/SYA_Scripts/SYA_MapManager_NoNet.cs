@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class SYA_MapManager_NoNet : MonoBehaviourPun
+
+public class SYA_MapManager_NoNet : MonoBehaviour
 {
     public List<GameObject> MAP = new List<GameObject>();
     // Start is called before the first frame update
     void Awake()
     {
+        Destroy(GetComponent<Photon.Pun.PhotonView>());
         int ran = Random.Range(0, MAP.Count);
         if (ran >= 0)
         {

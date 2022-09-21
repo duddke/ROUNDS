@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: -4843935755508656895}
   - component: {fileID: -6647323464785520521}
   - component: {fileID: 3411481084145945040}
+  - component: {fileID: 6047309473714673749}
   m_Layer: 29
   m_Name: Red_Player
   m_TagString: Player
@@ -176,9 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa3c610f5f0eee4f8fbe8fce4888e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directBullet: {fileID: 7807577949550339895, guid: 1e69e88de79fe0c42b90c57ce74b0bf1, type: 3}
-  followBullet: {fileID: 7894101415141966869, guid: bca111a29dcd55848854f608e8f89aef, type: 3}
-  bounceBullet: {fileID: 8920265362739437770, guid: c8aed0aba03fdab48b49447752b33437, type: 3}
+  BulletFactory: {fileID: 0}
   FirePos: {fileID: 164618999938030108}
   t_mousePos: {x: 0, y: 0}
   t_direction: {x: 0, y: 0}
@@ -248,8 +247,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164619001037149441}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10692a202a4288e419b18723769763ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &6047309473714673749
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164619001037149441}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
