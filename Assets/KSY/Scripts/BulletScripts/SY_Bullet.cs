@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SY_FollowBullet : MonoBehaviour
+public class SY_Bullet : MonoBehaviour
 {
-    GameObject target;
-    [SerializeField] float speed = 2f, rotSpeed = 2f;
+    public GameObject explosion;
+    public float bulletSpeed;
 
-    Quaternion rotTarget;
     Vector3 dir;
     Rigidbody2D rb;
 
-    Camera m_cam = null;
-
-    public static SY_FollowBullet instance;
+    public static SY_Bullet instance;
 
     private void Awake()
     {
@@ -25,26 +22,34 @@ public class SY_FollowBullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         target = GameObject.Find("Player");
-        m_cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        FollowBullet();
+        //불값에 따라 함수 실행
+
+    }
+
+    // 일반 총알
+    public void NomalBullet()
+    {
+        // 발사하고 싶다.
+        rb.AddForce(Vector2.right * bulletSpeed, ForceMode2D.Impulse);
     }
 
 
+    // 유도탄
+    GameObject target;
+    [SerializeField] float speed = 2f, rotSpeed = 2f;
+    Quaternion rotTarget;
     public float creatTime = 1f;
     public float currentTime;
     public void FollowBullet()
     {
-        // 마우스 입력으로
-        Vector2 t_mousePos = m_cam.ScreenToWorldPoint(Input.mousePosition);
-
         currentTime += Time.deltaTime;
 
-        if(currentTime > creatTime)
+        if (currentTime > creatTime)
         {
             dir = (target.transform.position - transform.position);
             dir.Normalize();
@@ -59,11 +64,31 @@ public class SY_FollowBullet : MonoBehaviour
             // 총알 속도
             rb.velocity = transform.right * 20f;
         }
+
+
     }
+
+    // 2번 팅기는 총알
+    bool bounce;
+    public void BounceBullet()
+    {
+        bounce = true;
+        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-            //Instantiate(FirePos, transform.position, Quaternion.identity);
-            Destroy(gameObject);   
+        GameObject explo = Instantiate(explosion);
+        explo.transform.position = transform.position;
+
+        Destroy(gameObject);
+
+        if (bounce == true)
+        {
+            collision.rigidbody.AddForce(new Vector3(300, 300, 0));
+        }
     }
 }

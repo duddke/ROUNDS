@@ -46,6 +46,8 @@ MonoBehaviour:
   - WallWalk
   - LookAtMouse
   - TryFire
+  - RpcChangeState
+  - RpcSetTrigger
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
