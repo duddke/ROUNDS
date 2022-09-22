@@ -51,11 +51,6 @@ public class GameManager : MonoBehaviourPun
     private void Awake()
     {
         //if (!photonView.IsMine) return;
-        /*              if (!photonView.IsMine)
-                        {
-                            Destroy(gameObject);
-                            return;
-                        }*/
         if (Instance == null)
         {
             //인스턴스에 나를 넣고
@@ -197,6 +192,11 @@ public class GameManager : MonoBehaviourPun
         //플레이어 생성
         GameObject player = Instantiate(RedPlayer);
         player.transform.position = GameObject.Find("P1_Pos").transform.position;
+        /*if (photonView.IsMine)
+            PhotonNetwork.Instantiate("Red_Player", GameObject.Find("P1_Pos").transform.position, Quaternion.identity);
+        else
+            photonView.RPC("CreatePlayer", RpcTarget.All, GameObject.Find("P2_Pos").transform.position);*/
+
         //총발사 가능
         //이동 가능
         //상태변경
@@ -269,6 +269,7 @@ public class GameManager : MonoBehaviourPun
             else
             {
                 //다시 준비상태(game)
+                gameRule = GameRule.CardSellectBlue;
                 CardSellectBlue();
             }
         }
@@ -300,8 +301,12 @@ public class GameManager : MonoBehaviourPun
                     //위너 b플레이어 닉네임
                     winner = "Blue 승리!!";//players[1].Owner.NickName;
                 }
-                //게임상태 엔드로 변환
+                //결과씬으로 변환
                 gameRule = GameRule.GameEnd;
+                SceneManager.LoadScene("SYA_ResultScene");
+                turnJump = GameObject.Find("Turn Jump");
+                turnJump.SetActive(false);
+                //게임상태 엔드로 변환
             }
             //아니라면
             else
@@ -332,17 +337,20 @@ public class GameManager : MonoBehaviourPun
     }
     bool first;
 
+    public Text winnerText;
+    public GameObject turnJump;
     public void GameEnd()
     {
-        //결과씬으로 변환
-        //SceneManager.LoadScene(" ");
+        Time.timeScale = 1;
+        winnerText = GameObject.Find("Winner").GetComponent<Text>();
+        winnerText.text = winner + " WIN!!";
         print("게임 끝남");
-        print(winner);
+        //press to jump
+        currentTime += Time.deltaTime;
+        if(currentTime>=2)
+        {
+            turnJump.SetActive(true);
+        }
     }
 
-    [PunRPC]
-    void CreatePlayer(Vector3 map)
-    {
-        PhotonNetwork.Instantiate("Blue_Player", map, Quaternion.identity);
-    }
 }

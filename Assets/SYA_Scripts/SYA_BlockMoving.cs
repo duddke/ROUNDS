@@ -46,7 +46,7 @@ public class SYA_BlockMoving : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine == false) return;
+        //if (photonView.IsMine == false) return;
         switch(moveState)
         {
             case BlockMoveState.ToOneFromStart:
