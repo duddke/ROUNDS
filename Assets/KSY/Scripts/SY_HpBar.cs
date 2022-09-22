@@ -19,6 +19,13 @@ public class SY_HpBar : MonoBehaviour
     private float maxHp = 100;
     private float curHp = 100;
 
+    public static SY_HpBar instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,19 +63,15 @@ public class SY_HpBar : MonoBehaviour
         curHp -= 10;
         if (curHp <= 0)
         {
-            // state => Die상태로 변경
             curHp = 0;
-            print("Die");
+            // state => Die상태로 변경
+            SY_PlayerMove.instance.state = SY_PlayerMove.State.Die;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 총알에 닿으면 데미지 함수 실행
-        if (collision.gameObject.tag == "Bullet")
-        {
-            HandleHp();
-        }
+        
     }
 
 

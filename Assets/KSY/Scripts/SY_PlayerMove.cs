@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
+using System;
 
 public class SY_PlayerMove : MonoBehaviourPun
 {
+    public enum State
+    {
+        Idle,
+        Die
+    }
+
+   public State state = State.Idle;
 
     [SerializeField]
     float speed = 5f;
@@ -13,13 +20,13 @@ public class SY_PlayerMove : MonoBehaviourPun
     float h, v, flipRatio = 1f;
     public float maxSpeed;
     bool isJump;
-   
+
     public Vector3 playerDir;
-    
+
     Rigidbody2D rb;
 
     public static SY_PlayerMove instance;
-    
+
     private void Awake()
     {
         instance = this;
@@ -39,9 +46,31 @@ public class SY_PlayerMove : MonoBehaviourPun
         PlayerFlip();
         WallWalk();
         JumpHandle();
+
+        switch (state)
+        {
+            case State.Idle:
+                Idle();
+                break;
+            case State.Die:
+                Die();
+                break;
+        }
+
     }
 
-    
+    public void Idle()
+    {
+
+    }
+
+    public void Die()
+    {
+        // 다음 씬으로 전환
+        print("Die");
+        
+    }
+
     void Movement()
     {
         // 사용자 입력에 따라
@@ -73,26 +102,9 @@ public class SY_PlayerMove : MonoBehaviourPun
         else
         {   // 수평방향으로 방향 설정
             //isHorizontalMove = true;
-        
         }
 
-        // 점프구현
-        //if (rb.velocity.y == 0)
-        //{
-        //    isJump = true;
-        //}
-        //else
-        //{
-        //    isJump = false;
-        //}
-
-        //if (Input.GetButtonDown("Jump") && isJump)
-        //{
-        //    rb.AddForce(Vector2.up * jumpForce);
-        //}
     }
-
-
 
     void JumpHandle()
     {
@@ -103,7 +115,7 @@ public class SY_PlayerMove : MonoBehaviourPun
                 Jump();
                 //isJump = true;
             }
-           else return; //점프 중일 때는 실행하지 않고 바로 return.
+            else return; //점프 중일 때는 실행하지 않고 바로 return.
         }
     }
 
@@ -142,13 +154,13 @@ public class SY_PlayerMove : MonoBehaviourPun
         // 수평방향으로 이동할 때 DrawRay
         Debug.DrawRay(rb.position, playerDir, Color.blue);
         RaycastHit2D rayHit = Physics2D.Raycast(rb.position, playerDir, 1f, LayerMask.GetMask("Wall"));
-        
+
         //  레이에 닿으면 상하로 이동할 수 있다.
         if (rayHit.collider != null)
         {
             //rb.velocity = Vector2.zero;
             Debug.Log(rayHit.collider.tag);
-             
+
             // 상하로 이동하고 싶다.
             rb.AddForce(Vector2.up * v, ForceMode2D.Impulse);
             isJump = false;
@@ -159,21 +171,27 @@ public class SY_PlayerMove : MonoBehaviourPun
             else if (rb.velocity.y < -maxSpeed)
                 rb.velocity = new Vector2(rb.velocity.x, -maxSpeed);
         }
-        else 
+        else
         {
-            
+
         }
     }
 
     [PunRPC]
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 충동하지 않으면
+        // 충하지 않으면
         if (collision.gameObject != null)
         {
             // 점프 없음
             isJump = false;
             print("ground");
+        }
+        // 총알에 맞으면
+        if (collision.gameObject.layer == 30)
+        {
+            //데미지 함수 실행
+            SY_HpBar.instance.HandleHp();
         }
     }
 }
