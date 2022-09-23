@@ -48,6 +48,12 @@ MonoBehaviour:
   - TryFire
   - RpcChangeState
   - RpcSetTrigger
+  - RpcJump
+  - RpcMove
+  - RpcWallWalk
+  - ChangeCard
+  - RpcCardSellectBlue
+  - RpcCardSellectRed
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SYA_CardMaker : MonoBehaviour
+public class SYA_CardMaker : MonoBehaviourPun
 {
     public List<GameObject> card = new List<GameObject>();
     public List<RectTransform> cardTr = new List<RectTransform>();
@@ -24,19 +25,19 @@ public class SYA_CardMaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*        if (photonView.IsMine)
-        {*/
-        if (end) return;
-        for (int i = 0; i < countMax; i++)
+        if (photonView.IsMine)
         {
-            int ran = Random.Range(0, card.Count);
-            exran = ran;
-            //PhotonNetwork.Instantiate(MAP[ran].name, Vector2.zero, Quaternion.identity);
-            GameObject map = Instantiate(card[ran], tr);
-            map.transform.position = cardTr[i].position;
-            if (i < countMax)
-                end = true;
+            if (end) return;
+            for (int i = 0; i < countMax; i++)
+            {
+                int ran = Random.Range(0, card.Count);
+                exran = ran;
+                PhotonNetwork.Instantiate(card[ran].name, cardTr[i].position, Quaternion.identity);
+                //GameObject map = Instantiate(card[ran], tr);
+                //map.transform.position = cardTr[i].position;
+                if (i < countMax)
+                    end = true;
+            }
         }
-        //}
     }
 }

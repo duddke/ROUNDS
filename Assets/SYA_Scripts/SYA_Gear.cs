@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SYA_Gear : MonoBehaviour
+public class SYA_Gear : MonoBehaviourPun
 {
     //빙글빙글 돌아간다
     public float rotSpeed = 300;
@@ -16,13 +17,22 @@ public class SYA_Gear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         time = Time.deltaTime * rotSpeed;
+        if (!photonView.IsMine) return;
+        time = Time.deltaTime * rotSpeed;
         transform.Rotate(transform.forward*time);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //플레이어라면
-        //플레이어 온데미지 실행
+        if (!photonView.IsMine) return;
+        //플레이어 데미지 점프
+        if (collision.gameObject.layer == 29)
+        {
+            //데미지 함수
+            collision.GetComponentInChildren<SY_HpBar>().HandleHp();
+            //온데미지 점프함수
+            collision.GetComponent<SY_PlayerMove>().Jump();
+
+        }
     }
 }

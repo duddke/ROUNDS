@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Photon.Pun;
 
-public class SYA_CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SYA_CardUI : MonoBehaviourPun, IPointerEnterHandler, IPointerExitHandler
 {
     Vector3 sca;
     Vector3 change;
 
-    GameObject go;
+    public Image go;
+    public Transform tr;
+
+    private void Awake()
+    {
+        tr = GameObject.Find("Canvas").transform;
+        gameObject.transform.SetParent(tr);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         change = new Vector3(1.5f, 1.5f, 1.5f);
         sca = transform.localScale;
-        go = GetComponentInChildren<GameObject>();
     }
 
     // Update is called once per frame
@@ -27,22 +34,68 @@ public class SYA_CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        gameObject.transform.localScale = change;
-        go.SetActive(false);
+        if(gameObject.name.Contains("Red"))
+        {
+            if (photonView.IsMine)
+            {
+                gameObject.transform.localScale = change;
+                go.enabled = false;
+            }
+        }
+        else
+        {
+            if (!photonView.IsMine)
+            {
+                gameObject.transform.localScale = change;
+                go.enabled = false;
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        gameObject.transform.localScale = sca;
-        go.SetActive(true);
+        if (gameObject.name.Contains("Red"))
+        {
+            if (photonView.IsMine)
+            {
+                gameObject.transform.localScale = sca;
+                go.enabled = true;
+            }
+        }
+        else
+        {
+            if (!photonView.IsMine)
+            {
+                gameObject.transform.localScale = sca;
+                go.enabled = true;
+            }
+        }
     }
 
     public void OnClick()
     {
-        //반영할 거
-        ChangeCard(gameObject.name);
+        if (gameObject.name.Contains("Red"))
+        {
+            if (photonView.IsMine)
+            {
+                //반영할 거
+                photonView.RPC("ChangeCard", RpcTarget.MasterClient, gameObject.name);
+                //ChangeCard(gameObject.name);
+            }
+        }
+        else
+        {
+            if (!photonView.IsMine)
+            {
+                //반영할 거
+                photonView.RPC("ChangeCard", RpcTarget.MasterClient, gameObject.name);
+                //ChangeCard(gameObject.name);
+            }
+        }
+
     }
 
+    [PunRPC]
     void ChangeCard(string cardname)
     {
         if (cardname.Contains("Red"))

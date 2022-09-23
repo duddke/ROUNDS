@@ -15,9 +15,12 @@ public class SYA_PlayerNet : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine)
+        if (!GetComponent<SY_PlayerMove>().isCreated)
         {
-            Destroy(rig);
+            if (rig)
+                Destroy(rig);
+            if (GetComponent<Collider2D>())
+                GetComponent<Collider2D>().enabled = false;
         }
     }
 }

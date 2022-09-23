@@ -10,15 +10,6 @@ public class SYA_DestroyZone : MonoBehaviourPun
         if (!photonView.IsMine) return;
         //총알 삭제
         if (collision.gameObject.layer == 30)
-            Destroy(collision.gameObject);
-        //플레이어 데미지 점프
-        if (collision.gameObject.layer == 29)
-        {
-            //데미지 함수
-            collision.GetComponentInChildren<SY_HpBar>().HandleHp();
-            //온데미지 점프함수
-            collision.GetComponent<SY_PlayerMove>().Jump();
-
-        }
+            PhotonNetwork.Destroy(collision.gameObject);
     }
 }

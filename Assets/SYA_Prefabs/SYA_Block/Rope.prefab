@@ -51,7 +51,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 4201763039310782139}
   segmentCount: 2
   segmentLength: 2
-  ropeWidth: 0.01
+  ropeWidth: 0.0205
   gravity: {x: 0, y: -9.81}
   startTransform: {fileID: 0}
 --- !u!120 &4201763039310782139
@@ -187,7 +187,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 2549128497651918065}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

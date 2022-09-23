@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bc84f87b7cdd14aacd02d561fc168f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RedPlayer: {fileID: 1885955371319993277, guid: f68cede09177c6a47bd36b0ff5a44b70, type: 3}
+  RedPlayer: {fileID: 6317373244818352208, guid: fc9e5d9837765c34ca864508d5fffcc8, type: 3}
   AdieCount: 0
   BdieCount: 0
   AroundWinCount: 0
@@ -201,6 +201,8 @@ MonoBehaviour:
   gameRule: 0
   players: []
   currentTime: 0
+  winnerText: {fileID: 0}
+  turnJump: {fileID: 0}
 --- !u!1 &644689346
 GameObject:
   m_ObjectHideFlags: 0

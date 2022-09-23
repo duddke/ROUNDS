@@ -50,6 +50,7 @@ public class SYA_ConnectionManager : MonoBehaviourPunCallbacks
 
     public void OnClickConnect()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         //서버 접속 요청
         PhotonNetwork.ConnectUsingSettings();
     }

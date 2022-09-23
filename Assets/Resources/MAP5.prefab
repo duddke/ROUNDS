@@ -213,8 +213,8 @@ MonoBehaviour:
   End: {fileID: 7826907885838771289}
   lineRenderer: {fileID: 4322310058866890369}
   segmentCount: 2
-  segmentLength: 1
-  ropeWidth: 0.1
+  segmentLength: 2
+  ropeWidth: 0.0205
   gravity: {x: 0, y: -9.81}
   startTransform: {fileID: 4322310058991115265}
 --- !u!120 &4322310058866890369
@@ -473,7 +473,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 4322310059287167998}
   segmentCount: 2
   segmentLength: 2
-  ropeWidth: 0.1
+  ropeWidth: 0.0205
   gravity: {x: 0, y: -9.81}
   startTransform: {fileID: 5814418178361190319}
 --- !u!120 &4322310059287167998
@@ -624,7 +624,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 4322310059317273348}
   segmentCount: 2
   segmentLength: 2
-  ropeWidth: 0.1
+  ropeWidth: 0.0205
   gravity: {x: 0, y: -9.81}
   startTransform: {fileID: 2147497322317935934}
 --- !u!120 &4322310059317273348
@@ -958,8 +958,8 @@ MonoBehaviour:
   End: {fileID: 1387284389797031761}
   lineRenderer: {fileID: 4322310060094736808}
   segmentCount: 2
-  segmentLength: 1
-  ropeWidth: 0.1
+  segmentLength: 2
+  ropeWidth: 0.0205
   gravity: {x: 0, y: -9.81}
   startTransform: {fileID: 4322310059270180775}
 --- !u!120 &4322310060094736808
@@ -1109,8 +1109,8 @@ MonoBehaviour:
   End: {fileID: 5814418178361190316}
   lineRenderer: {fileID: 4322310060449075703}
   segmentCount: 2
-  segmentLength: 5
-  ropeWidth: 0.1
+  segmentLength: 2
+  ropeWidth: 0.0205
   gravity: {x: 0, y: -9.81}
   startTransform: {fileID: 4322310058587722371}
 --- !u!120 &4322310060449075703
@@ -1254,6 +1254,10 @@ PrefabInstance:
       propertyPath: End
       value: 
       objectReference: {fileID: 2147497322317935933}
+    - target: {fileID: 4201763039310782136, guid: 30d190a72ff368f468954979e141d0b5, type: 3}
+      propertyPath: ropeWidth
+      value: 0.0205
+      objectReference: {fileID: 0}
     - target: {fileID: 4201763039310782136, guid: 30d190a72ff368f468954979e141d0b5, type: 3}
       propertyPath: startTransform
       value: 

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SYA_BrokenBlock : MonoBehaviour
+public class SYA_BrokenBlock : MonoBehaviourPun
 {
 
 
@@ -19,6 +20,6 @@ public class SYA_BrokenBlock : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer==30)
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
     }
 }
