@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,13 @@ using UnityEngine.UI;
 public class SY_HpBar : MonoBehaviour
 {
 
-    //[SerializeField] GameObject m_goPrefab = null;
-
-    //List<Transform> m_objectList = new List<Transform>();
-    //List<GameObject> m_hpBarList = new List<GameObject>();
-
-    //Camera m_cam = null;
-
     [SerializeField]
-    private Slider hpbar;
-    float imsi;
-    private float maxHp = 100;
-    private float curHp = 100;
+    public Slider hpbar;
+    public float maxHp = 100;
+    public int curHp = 100;
+
+    float currentTime;
+    public float creatTime = 5f;
 
     public static SY_HpBar instance;
 
@@ -30,34 +26,18 @@ public class SY_HpBar : MonoBehaviour
     void Start()
     {
         hpbar.value = (float)curHp / (float)maxHp;
-        //m_cam = Camera.main;
-
-        //GameObject[] t_objects = GameObject.FindGameObjectsWithTag("Player");
-        //for (int i = 0; i < t_objects.Length; i++)
-        //{
-        //    m_objectList.Add(t_objects[i].transform);
-        //    GameObject t_hpbar = Instantiate(m_goPrefab, t_objects[i].transform.position, Quaternion.identity, transform);
-        //    m_hpBarList.Add(t_hpbar);
-        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         hpbar.value = (float)curHp / (float)maxHp;
-
-        //for (int i = 0; i < m_objectList.Count; i++)
-        //{
-        //    m_hpBarList[i].transform.position = m_cam.WorldToScreenPoint(m_objectList[i].position + new Vector3(0, 1f, 0));
-        //}
-        //if (Input.GetButtonDown("Fire2"))
-        //{
-        //    HandleHp();
-        //}
+        curHp = Math.Clamp(curHp, 0, 100);
     }
 
-    // 데미지 함수
+
+
+    // nomal데미지 함수
     public void HandleHp()
     {
         curHp -= 10;
@@ -69,10 +49,40 @@ public class SY_HpBar : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    // 나의 hp 20 증가
+    public bool hugeHp;
+    public void HugeHp()
     {
-        
+        // hp가 증가하고 싶다.
+        if (curHp <= maxHp)
+        {
+            curHp += 20;
+        }
     }
 
+    // poison 총알 맞으면
+    // 일정시간 동안  상대방 hp감소
+    public bool poisonHp;
+    public void PoisonHp()
+    {
+        // 몇초 동안 체력을 감소하게 하고 싶다
+        StopCoroutine("OnPoison");
+        StartCoroutine("OnPoison");
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+    }
+
+    IEnumerator OnPoison()
+    {
+        float coCurrentTime = 0;
+        while (coCurrentTime < 3.0f && curHp <= maxHp)
+        {
+            curHp -= 10;
+            yield return new WaitForSeconds(0.5f);
+            coCurrentTime += 0.5f;
+        }
+    }
 }

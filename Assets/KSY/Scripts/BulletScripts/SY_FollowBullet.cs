@@ -24,7 +24,7 @@ public class SY_FollowBullet : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        target = GameObject.Find("Player");
+        target = GameObject.Find("Blue_Player");
         m_cam = Camera.main;
     }
 
@@ -59,11 +59,15 @@ public class SY_FollowBullet : MonoBehaviour
             // ÃÑ¾Ë ¼Óµµ
             rb.velocity = transform.right * 20f;
         }
+        else
+        {
+           
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
             //Instantiate(FirePos, transform.position, Quaternion.identity);
-            Destroy(gameObject);   
+           // Destroy(gameObject);   
     }
 }

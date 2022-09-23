@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 100014, guid: 5332791ebce075d4a9e56f4581e7fb47, type: 3}
   bulletSpeed: 10
-  speed: 2
+  speed: 10
   rotSpeed: 2
   creatTime: 1
   currentTime: 0
