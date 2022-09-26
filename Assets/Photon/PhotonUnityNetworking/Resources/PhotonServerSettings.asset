@@ -77,6 +77,20 @@ MonoBehaviour:
   - RpcDuelResultUI
   - RpcRoundResultUI
   - RpcwinReUI
+  - RpcHandleHp
+  - RpcHugeHp
+  - RpcPoisonHp
+  - RpcTryFire
+  - RpcOnPoison
+  - RpcBarrageBullet
+  - RpcOnFollowBullet
+  - RpcBigBullet
+  - RpcBounceBullet
+  - RpcChase
+  - RpcHuge
+  - RpcPoison
+  - RpcQuickShoot
+  - RpcCreate
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

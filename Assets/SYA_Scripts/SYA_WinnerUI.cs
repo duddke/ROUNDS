@@ -37,6 +37,7 @@ public class SYA_WinnerUI : MonoBehaviourPun
     void RpcwinReUI(string a)
     {
         win.text = a + "½Â¸®!!";
+        win.enabled = true;
     }
 
 }

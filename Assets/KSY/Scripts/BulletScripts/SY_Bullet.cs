@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SY_Bullet : MonoBehaviour
+public class SY_Bullet : MonoBehaviourPun
 {
     public GameObject explosion;
     public float bulletSpeed;
@@ -10,7 +11,7 @@ public class SY_Bullet : MonoBehaviour
 
 
 
-    Vector2 dir;
+    public Vector3 dir;
     Rigidbody2D rb;
 
     public static SY_Bullet instance;
@@ -20,13 +21,27 @@ public class SY_Bullet : MonoBehaviour
     {
         instance = this;
     }
+    public bool red; 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        target = GameObject.Find("Blue_Player");
-        dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            Destroy(rb);
+            GetComponent<Collider2D>().enabled = false;
+        }
+
+        if (!red)
+        {
+            target = GameObject.Find("Red_Player");
+        }
+        else
+        {
+            target = GameObject.Find("Blue_Player");
+        }
+        //dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
         //불값에 따라 함수 실행
         if (barrageBullet)
@@ -62,8 +77,10 @@ public class SY_Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
+        if(PhotonNetwork.IsMasterClient)
+        {
+            transform.right = rb.velocity;
+        }
     }
 
 
@@ -89,8 +106,6 @@ public class SY_Bullet : MonoBehaviour
         print("FollowBullet");
         StopCoroutine("OnFollowBullet");
         StartCoroutine("OnFollowBullet");
-
-
     }
 
     [SerializeField] [Range(100f, 2000f)] float BBSpeed;
@@ -151,54 +166,77 @@ public class SY_Bullet : MonoBehaviour
 
     // 대형 총알
     public bool bigBullet;
+    [SerializeField] [Range(1f, 5f)] float scaleSpeed = 1f;
     public void BigBullet()
     {
-        
+
         dir.Normalize();
-        // 발사하고 싶다.
+
         rb.AddForce(dir * bulletSpeed);
+
+        StartCoroutine("OnBigBullet");
+
+    }
+    IEnumerator OnBigBullet()
+    {
+        float coCurrentTime = 0;
+
+        while (coCurrentTime < 5f)
+        {
+            coCurrentTime += Time.deltaTime;
+            transform.localScale += 10f * Vector3.one * Time.deltaTime;
+            yield return null;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
         {
-            GameObject explo = Instantiate(explosion);
-            explo.transform.position = transform.position;
+            photonView.RPC("RpcCreate", RpcTarget.MasterClient, transform.position);
                // transform.position - Vector3.forward;
         }
 
         if (!bounceBullet)
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
 
-        if (collision.gameObject.tag == "Wall") // 충돌 게임오브젝트를 플레이어로 교체
+        if (collision.gameObject.tag == "Player") // 충돌 게임오브젝트를 플레이어로 교체
         {
             if (huge)
             {
-                //if (collision.gameObject.name.Contains("Red"))
-                //GameObject.Find("Blue_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
-                //else
-                //GameObject.Find("Red_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
-                GameObject.Find("Player").GetComponentInChildren<SY_HpBar>().HugeHp();
+                if (collision.gameObject.name.Contains("Red"))
+                    GameObject.Find("Blue_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
+                else
+                    GameObject.Find("Red_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
+                //GameObject.Find("Player").GetComponentInChildren<SY_HpBar>().HugeHp();
             }
             if (poison)
             {
-                //collision.gameObject.GetComponentInChildren<SY_HpBar>().PoisonHp();
-                GameObject.Find("Player").GetComponentInChildren<SY_HpBar>().PoisonHp();
+                collision.gameObject.GetComponentInChildren<SY_HpBar>().PoisonHp();
+                //GameObject.Find("Player").GetComponentInChildren<SY_HpBar>().PoisonHp();
 
             }
-
+        }
+        if (collision.gameObject.tag == "Wall")
+        {
             if (bounceBullet)
             {
                 // 충돌 횟수가 2개             
                 count += 1;
                 if (count > 2)
                 {
-                    Destroy(gameObject);
+                    PhotonNetwork.Destroy(gameObject);
                 }
             }
         }
     }
+
+    [PunRPC]
+    void RpcCreate(Vector3 dir)
+    {
+        PhotonNetwork.Instantiate("WFX_Explosion Small", dir, Quaternion.identity);
+    }
+
 
     float currentTime;
     

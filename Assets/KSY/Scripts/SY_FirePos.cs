@@ -23,16 +23,17 @@ public class SY_FirePos : MonoBehaviourPun
     void Start()
     {
         m_cam = Camera.main;
-        SY_Bullet.instance.BarrageBullet();
+/*        SY_Bullet.instance.BarrageBullet();
         SY_Bullet.instance.FollowBullet();
         SY_Bullet.instance.BounceBullet();
         SY_Bullet.instance.Huge();
-        SY_Bullet.instance.Poison();
+        SY_Bullet.instance.Poison();*/
     }
 
     // 마우스가 바라보는 방향으로
     public void LookAtMouse()
     {
+        if (!GetComponentInParent<SY_PlayerMove>().isCreated) return;
         //// 마우스 위치
         //Vector2 t_mousePos = m_cam.ScreenToWorldPoint(Input.mousePosition);
         //// 마우스 위치 방향으로
@@ -44,33 +45,68 @@ public class SY_FirePos : MonoBehaviourPun
 
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rotation;
+
         if (Input.GetButtonDown("Fire1"))
         {
-            TryFire(rotation);
+            TryFire(rotation,gameObject.name.Contains("Red_Player"));
         }
 
         //FirePos.right = t_direction;
     }
 
 
-    void TryFire(Quaternion rot)
+    void TryFire(Quaternion rot, bool red)
+    {
+        Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - FirePos.position;
+        photonView.RPC("RpcTryFire", RpcTarget.MasterClient, FirePos.position,rot,red, dir);
+    }
+    [PunRPC]
+    void RpcTryFire(Vector3 pos, Quaternion rot ,bool red, Vector3 dir)
+
     {
         // 연속발사 총알을 생성하여
-        GameObject bullet = Instantiate(BulletFactory, FirePos.position, FirePos.rotation);
-        bullet.GetComponent<SY_Bullet>().barrageBullet = false; // 일반총알
-        bullet.GetComponent<SY_Bullet>().followBullet = true;  // 유도탄
-        bullet.GetComponent<SY_Bullet>().bounceBullet = false;  // 바운스 총알
-        bullet.GetComponent<SY_Bullet>().huge = false;  // hp증가
-        bullet.GetComponent<SY_Bullet>().poison = false; // hp 점점 감소
-        bullet.GetComponent<SY_Bullet>().quickShoot = false; // Quick shoot 총알 속도 증가
-        bullet.GetComponent<SY_Bullet>().bigBullet = false; // big Bullet 총알 크기 증가
-        // chase 캐릭터 이동속도 증가
+        GameObject bullet = PhotonNetwork.Instantiate("Bullet", pos, rot);
+        SY_Bullet syBullet = bullet.GetComponent<SY_Bullet>();
+        if (red)
+        {
+            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.redCard[0]; // 일반총알
+            bullet.GetComponent<SY_Bullet>().bigBullet = SYA_CardManager.Instance.redCard[1]; // big Bullet 총알 크기 증가
+            bullet.GetComponent<SY_Bullet>().bounceBullet = SYA_CardManager.Instance.redCard[2];  // 바운스 총알
 
+            bullet.GetComponent<SY_Bullet>().barrageBullet= SYA_CardManager.Instance.redCard[3]; //brawler
+            bullet.GetComponent<SY_Bullet>().barrageBullet= SYA_CardManager.Instance.redCard[4]; //chase
+
+            bullet.GetComponent<SY_Bullet>().poison = SYA_CardManager.Instance.redCard[5]; // hp 점점 감소
+            bullet.GetComponent<SY_Bullet>().huge = SYA_CardManager.Instance.redCard[6];  // hp증가
+            bullet.GetComponent<SY_Bullet>().followBullet = SYA_CardManager.Instance.redCard[7];  // 유도탄
+            bullet.GetComponent<SY_Bullet>().quickShoot = SYA_CardManager.Instance.redCard[8]; // Quick shoot 총알 속도 증가
+
+            bullet.GetComponent<SY_Bullet>().barrageBullet= SYA_CardManager.Instance.redCard[9]; //Burst
+        }
+        else
+        {
+            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[0]; // 일반총알
+            bullet.GetComponent<SY_Bullet>().bigBullet = SYA_CardManager.Instance.blueCard[1]; // big Bullet 총알 크기 증가
+            bullet.GetComponent<SY_Bullet>().bounceBullet = SYA_CardManager.Instance.blueCard[2];  // 바운스 총알
+
+            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[3]; //brawler
+            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[4]; //chase
+
+            bullet.GetComponent<SY_Bullet>().poison = SYA_CardManager.Instance.blueCard[5]; // hp 점점 감소
+            bullet.GetComponent<SY_Bullet>().huge = SYA_CardManager.Instance.blueCard[6];  // hp증가
+            bullet.GetComponent<SY_Bullet>().followBullet = SYA_CardManager.Instance.blueCard[7];  // 유도탄
+            bullet.GetComponent<SY_Bullet>().quickShoot = SYA_CardManager.Instance.blueCard[8]; // Quick shoot 총알 속도 증가
+
+            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[9]; //Burst
+        }
+        bullet.GetComponent<SY_Bullet>().red = red;
+        bullet.GetComponent<SY_Bullet>().dir = dir;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!GetComponentInParent<SY_PlayerMove>().isCreated) return;
         LookAtMouse();
     }
 }
