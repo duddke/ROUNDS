@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon;
 using System;
 
 public class SY_PlayerMove : MonoBehaviourPun
@@ -85,9 +86,10 @@ public class SY_PlayerMove : MonoBehaviourPun
             if (Input.GetButtonDown("Jump"))
             {
                 if (isJump) return;
-
-                photonView.RPC("Jump", RpcTarget.MasterClient);
-                isJump = true;
+                {
+                    photonView.RPC("Jump", RpcTarget.MasterClient);
+                    isJump = true;
+                }
                 
             }
             #endregion
@@ -229,17 +231,30 @@ public class SY_PlayerMove : MonoBehaviourPun
             isJump = false;
             print("ground");
         }
-        // 총알에 맞으면
-        if (collision.gameObject.layer == 30)
-        {
-            //데미지 함수 실행
-            SY_HpBar.instance.HandleHp();
-        }
         if(collision.gameObject.layer==31)
         {
 
             isJump = false;
         }
+        // 총알에 맞으면
+        if (collision.gameObject.layer == 30)
+        {
+            //데미지 함수 실행
+            GetComponentInChildren<SY_HpBar>().HandleHp();
+            //GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
     }
-    bool isGround;
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(isJump);
+        }
+
+        else
+        {
+            isJump = (bool)stream.ReceiveNext();
+        }
+    }
+
 }

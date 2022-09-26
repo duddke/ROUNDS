@@ -107,6 +107,8 @@ GameObject:
   - component: {fileID: 6317373243636000589}
   - component: {fileID: 6317373243636000588}
   - component: {fileID: 6317373243636000595}
+  - component: {fileID: 4588599603306970725}
+  - component: {fileID: 8391870863577490582}
   m_Layer: 30
   m_Name: FirePos
   m_TagString: Untagged
@@ -123,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 6317373243636000590}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.050000012, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6317373245281101054}
@@ -198,6 +200,45 @@ MonoBehaviour:
   FirePos: {fileID: 6317373245281101054}
   t_mousePos: {x: 0, y: 0}
   t_direction: {x: 0, y: 0}
+--- !u!114 &4588599603306970725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317373243636000590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 8391870863577490582}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &8391870863577490582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317373243636000590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6317373243734226827
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +379,7 @@ GameObject:
   - component: {fileID: 6317373244546715245}
   - component: {fileID: 6317373244546715246}
   - component: {fileID: 6317373244546715247}
+  - component: {fileID: 3719618700934760755}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -446,6 +488,28 @@ MonoBehaviour:
   creatTime: 5
   hugeHp: 0
   poisonHp: 0
+--- !u!114 &3719618700934760755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317373244546715240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6317373244818352208
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +618,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 0.2
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 100
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0

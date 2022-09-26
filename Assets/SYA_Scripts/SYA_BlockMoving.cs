@@ -46,9 +46,9 @@ public class SYA_BlockMoving : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        Time.timeScale = 1;
         if (photonView.IsMine == false) return;
         if (GetComponent<SYA_BlockNet>().introEnd) return;
-        Time.timeScale = 1;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         switch (moveState)
         {

@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class SY_HpBar : MonoBehaviour
+public class SY_HpBar : MonoBehaviourPun
 {
 
     [SerializeField]
@@ -35,23 +36,31 @@ public class SY_HpBar : MonoBehaviour
         curHp = Math.Clamp(curHp, 0, 100);
     }
 
-
-
     // nomal데미지 함수
     public void HandleHp()
+    {
+        photonView.RPC("RpcHandleHp", RpcTarget.All);
+    }
+    [PunRPC]
+    void RpcHandleHp()
     {
         curHp -= 10;
         if (curHp <= 0)
         {
             curHp = 0;
             // state => Die상태로 변경
-            SY_PlayerMove.instance.state = SY_PlayerMove.State.Die;
+            GetComponentInParent<SY_PlayerMove>().state = SY_PlayerMove.State.Die;
         }
     }
 
     // 나의 hp 20 증가
     public bool hugeHp;
     public void HugeHp()
+    {
+        photonView.RPC("RpcHugeHp", RpcTarget.All);
+    }
+    [PunRPC]
+    void RpcHugeHp()
     {
         // hp가 증가하고 싶다.
         if (curHp <= maxHp)
@@ -70,6 +79,16 @@ public class SY_HpBar : MonoBehaviour
         StartCoroutine("OnPoison");
     }
 
+    public bool bigBullet;
+    public void BigBullet()
+    {
+        
+        if (curHp <= maxHp)
+        {
+            curHp -= 20;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -80,9 +99,15 @@ public class SY_HpBar : MonoBehaviour
         float coCurrentTime = 0;
         while (coCurrentTime < 3.0f && curHp <= maxHp)
         {
-            curHp -= 10;
+            photonView.RPC("RpcOnPoison", RpcTarget.All);
             yield return new WaitForSeconds(0.5f);
             coCurrentTime += 0.5f;
         }
+    }
+
+    [PunRPC]
+    void RpcOnPoison()
+    {
+        curHp -= 10;
     }
 }
