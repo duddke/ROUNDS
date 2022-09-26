@@ -19,7 +19,7 @@ public class SY_PlayerMove : MonoBehaviourPun
         Die
     }
 
-   public State state = State.Idle;
+    public State state = State.Idle;
 
     [SerializeField]
     float speed = 5f;
@@ -57,15 +57,15 @@ public class SY_PlayerMove : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine)
-        {
-            if (rb)
-                Destroy(rb);
-            if (GetComponent<HingeJoint2D>())
-                Destroy(GetComponent<HingeJoint2D>());
-            if (GetComponent<Collider2D>())
-                GetComponent<Collider2D>().enabled = false;
-        }
+        //if (!photonView.IsMine)
+        //{
+        //    if (rb)
+        //        Destroy(rb);
+        //    if (GetComponent<HingeJoint2D>())
+        //        Destroy(GetComponent<HingeJoint2D>());
+        //    if (GetComponent<Collider2D>())
+        //        GetComponent<Collider2D>().enabled = false;
+        //}
         if (isCreated)
         {
             // 사용자 입력 받기
@@ -76,10 +76,10 @@ public class SY_PlayerMove : MonoBehaviourPun
             photonView.RPC("RpcMove", RpcTarget.MasterClient, h);
 
             #region 벽타기
-            
+
             // 수평방향으로 이동할 때 DrawRay
             //레이 읽는 알피시
-            photonView.RPC("RpcWallWalk", RpcTarget.MasterClient, h, v); 
+            photonView.RPC("RpcWallWalk", RpcTarget.MasterClient, h, v);
             //
             #endregion
 
@@ -87,7 +87,7 @@ public class SY_PlayerMove : MonoBehaviourPun
             if (Input.GetButtonDown("Jump"))
             {
                 photonView.RPC("Jump", RpcTarget.MasterClient);
-                
+
             }
             #endregion
         }
@@ -135,12 +135,6 @@ public class SY_PlayerMove : MonoBehaviourPun
             //    isJump = true;
             //}
         }
-        PlayerFlip();
-
-        //if (isGround)
-        //{
-        //    isJump = false;
-        //}
 
         switch (state)
         {
@@ -163,7 +157,7 @@ public class SY_PlayerMove : MonoBehaviourPun
     {
         // 다음 씬으로 전환
         print("Die");
-        
+
     }
 
     [PunRPC]
@@ -185,7 +179,7 @@ public class SY_PlayerMove : MonoBehaviourPun
 
     //벽타기에 대한 rpc
     [PunRPC]
-    void RpcWallWalk(float h,  float v)
+    void RpcWallWalk(float h, float v)
     {
         //rb.velocity = Vector2.zero;
         //Debug.Log(rayHit.collider.tag);
@@ -197,7 +191,7 @@ public class SY_PlayerMove : MonoBehaviourPun
             playerDir = Vector2.left;
 
         wallWalkDir = Vector2.up * v;
-        
+
     }
 
     // 이동하는 방향으로 바라보기
@@ -232,7 +226,7 @@ public class SY_PlayerMove : MonoBehaviourPun
             //데미지 함수 실행
             SY_HpBar.instance.HandleHp();
         }
-        if(collision.gameObject.layer==31)
+        if (collision.gameObject.layer == 31)
         {
 
             isJump = false;

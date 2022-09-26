@@ -57,11 +57,15 @@ public class SY_FirePos : MonoBehaviourPun
     {
         // 연속발사 총알을 생성하여
         GameObject bullet = Instantiate(BulletFactory, FirePos.position, FirePos.rotation);
-        bullet.GetComponent<SY_Bullet>().barrageBullet = false ;
-        bullet.GetComponent<SY_Bullet>().followBullet = true;
-        bullet.GetComponent<SY_Bullet>().bounceBullet = false;
-        bullet.GetComponent<SY_Bullet>().huge = false;
-        bullet.GetComponent<SY_Bullet>().poison = false;
+        bullet.GetComponent<SY_Bullet>().barrageBullet = false; // 일반총알
+        bullet.GetComponent<SY_Bullet>().followBullet = true;  // 유도탄
+        bullet.GetComponent<SY_Bullet>().bounceBullet = false;  // 바운스 총알
+        bullet.GetComponent<SY_Bullet>().huge = false;  // hp증가
+        bullet.GetComponent<SY_Bullet>().poison = false; // hp 점점 감소
+        bullet.GetComponent<SY_Bullet>().quickShoot = false; // Quick shoot 총알 속도 증가
+        bullet.GetComponent<SY_Bullet>().bigBullet = false; // big Bullet 총알 크기 증가
+        // chase 캐릭터 이동속도 증가
+
     }
 
     // Update is called once per frame
