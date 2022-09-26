@@ -198,9 +198,6 @@ MonoBehaviour:
   FirePos: {fileID: 6317373245281101054}
   t_mousePos: {x: 0, y: 0}
   t_direction: {x: 0, y: 0}
-  nomalBullet: 1
-  followBullet: 0
-  bounceBullet: 0
 --- !u!1 &6317373243734226827
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +441,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpbar: {fileID: 6317373243734226826}
+  maxHp: 100
+  curHp: 100
+  creatTime: 5
+  hugeHp: 0
+  poisonHp: 0
 --- !u!1 &6317373244818352208
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCreated: 0
+  nicName: 
   state: 0
   speed: 2
   maxSpeed: 3
@@ -619,9 +622,6 @@ MonoBehaviour:
   FirePos: {fileID: 6317373245281101054}
   t_mousePos: {x: 0, y: 0}
   t_direction: {x: 0, y: 0}
-  nomalBullet: 0
-  followBullet: 0
-  bounceBullet: 0
 --- !u!95 &6317373244694566283
 Animator:
   serializedVersion: 4

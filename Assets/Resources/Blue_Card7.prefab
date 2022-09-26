@@ -42,7 +42,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 400}
+  m_SizeDelta: {x: 200, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5259352558341665500
 CanvasRenderer:
@@ -183,7 +183,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -5914404439822374527}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -241,7 +242,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 400}
+  m_SizeDelta: {x: 200, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5759441267529195420
 CanvasRenderer:
@@ -315,7 +316,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 3846411899788360945}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

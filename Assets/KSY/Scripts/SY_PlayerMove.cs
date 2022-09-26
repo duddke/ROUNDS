@@ -12,6 +12,7 @@ public class SY_PlayerMove : MonoBehaviourPun
     Vector3 wallWalkDir;
     Vector3 jumpDir;
     RaycastHit2D rayHit;
+    public string nicName;
     //
     public enum State
     {
@@ -38,6 +39,7 @@ public class SY_PlayerMove : MonoBehaviourPun
     {
         instance = this;
         //영아
+        nicName = photonView.Owner.NickName;
         isCreated = photonView.IsMine;
         //
     }
@@ -57,14 +59,10 @@ public class SY_PlayerMove : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine)
+        if(!PhotonNetwork.IsMasterClient)
         {
-            if (rb)
-                Destroy(rb);
-            if (GetComponent<HingeJoint2D>())
-                Destroy(GetComponent<HingeJoint2D>());
-            if (GetComponent<Collider2D>())
-                GetComponent<Collider2D>().enabled = false;
+            Destroy(rb);
+            GetComponent<Collider2D>().enabled = false;
         }
         if (isCreated)
         {
@@ -86,7 +84,10 @@ public class SY_PlayerMove : MonoBehaviourPun
             #region 점프
             if (Input.GetButtonDown("Jump"))
             {
+                if (isJump) return;
+
                 photonView.RPC("Jump", RpcTarget.MasterClient);
+                isJump = true;
                 
             }
             #endregion
@@ -166,12 +167,14 @@ public class SY_PlayerMove : MonoBehaviourPun
         
     }
 
+    public void JumpOn()
+    {
+        photonView.RPC("Jump", RpcTarget.All);
+    }
+
     [PunRPC]
     public void Jump()
     {
-        if (isJump) return;
-
-        isJump = true;
         jumpDir = Vector2.up * jumpForce;
         rb.AddForce(jumpDir, ForceMode2D.Impulse);
     }

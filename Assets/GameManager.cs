@@ -171,23 +171,23 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     //트루펄스로 전 스테이트 파악하기
     public void Ready()
     {
-       
+
         Time.timeScale = 1;
-        if (photonView.IsMine)
+
+        //맵생성이 완료되면
+        if (GameObject.Find("P1_Pos"))
         {
-            //맵생성이 완료되면
-            if (GameObject.Find("P1_Pos"))
-            {
-                //플레이어 리스트 리셋
-                players.Clear();
-                //상태변경
-                gameRule = GameRule.GameStart;
-            }
+            //플레이어 리스트 리셋
+            players.Clear();
+            //상태변경
+            gameRule = GameRule.GameStart;
         }
+
     }
 
     public void GameStart()
     {
+        if(players.Count>=2)
         gameRule = GameRule.Duel;
     }
 
@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
         //1초 뒤
         currentTime += Time.deltaTime;
-        if (currentTime > 0.5f)
+        if (currentTime > 0.3f)
         {
             currentTime = 0;
             //만약 둘 중 횟수가 2라면
@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
     IEnumerator aaa()
     {
-        PhotonNetwork.LoadLevel("TestScene");
+        PhotonNetwork.LoadLevel("SYA_MapLoadScene");
         yield return new WaitForSeconds(2);
         PhotonNetwork.LoadLevel("SyaScene");
     }
@@ -266,13 +266,13 @@ public class GameManager : MonoBehaviourPun, IPunObservable
                 if (AroundWinCount == 3)
                 {
                     //위너 a플레이어==players[0] 닉네임
-                    winner = /*"Red 승리!!";//*/players[0].GetComponent<PhotonView>().Owner.NickName;
+                    winner = /*"Red 승리!!";//*/players[0].GetComponent<SY_PlayerMove>().nicName;
                 }
                 //아니라면
                 else
                 {
                     //위너 b플레이어 닉네임
-                    winner = /*"Blue 승리!!";//*/players[1].GetComponent<PhotonView>().Owner.NickName;
+                    winner = /*"Blue 승리!!";//*/players[1].GetComponent<SY_PlayerMove>().nicName;
                 }
                 //결과씬으로 변환
                 gameRule = GameRule.GameEnd;
@@ -316,8 +316,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     public void GameEnd()
     {
         Time.timeScale = 1;
-        winnerText = GameObject.Find("Winner").GetComponent<Text>();
-        winnerText.text = winner + " WIN!!";
+
         print("게임 끝남");
         //press to jump
         currentTime += Time.deltaTime;

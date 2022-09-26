@@ -12,7 +12,7 @@ public class SYA_NicName : MonoBehaviour
     void Start()
     {
         pv = GetComponent<PhotonView>();
-        userId.text = pv.CreatorActorNr.ToString();
+        userId.text = GetComponentInParent<SY_PlayerMove>().nicName;
     }
 
     // Update is called once per frame

@@ -54,6 +54,29 @@ MonoBehaviour:
   - ChangeCard
   - RpcCardSellectBlue
   - RpcCardSellectRed
+  - RpcOnEightBlueCard
+  - RpcOnEightRedCard
+  - RpcOnFiveBlueCard
+  - RpcOnFiveRedCard
+  - RpcOnFourBlueCard
+  - RpcOnFourRedCard
+  - RpcOnNineBlueCard
+  - RpcOnNineRedCard
+  - RpcOnOneBlueCard
+  - RpcOnOneRedCard
+  - RpcOnSevenBlueCard
+  - RpcOnSevenRedCard
+  - RpcOnSixBlueCard
+  - RpcOnSixRedCard
+  - RpcOnTenBlueCard
+  - RpcOnTenRedCard
+  - RpcOnThreeBlueCard
+  - RpcOnThreeRedCard
+  - RpcOnTwoBlueCard
+  - RpcOnTwoRedCard
+  - RpcDuelResultUI
+  - RpcRoundResultUI
+  - RpcwinReUI
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

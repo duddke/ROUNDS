@@ -22,8 +22,11 @@ public class SYA_MAP8Moving : MonoBehaviourPun
     {
         if (!photonView.IsMine)
             return;
-        runTime += Time.fixedDeltaTime* speed;
-        yPos =MathF.Sin(runTime) * length;
-        transform.position = new Vector2(transform.position.x, transform.position.y + yPos);
+        if (GetComponent<SYA_BlockNet>().introEnd)
+        {
+            runTime += Time.fixedDeltaTime * speed;
+            yPos = MathF.Sin(runTime) * length;
+            transform.position = new Vector2(transform.position.x, transform.position.y + yPos);
+        }
     }
 }

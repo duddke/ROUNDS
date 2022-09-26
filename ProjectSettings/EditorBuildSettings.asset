@@ -27,6 +27,6 @@ EditorBuildSettings:
     path: Assets/SYA_Scenes/SYA_ResultScene.unity
     guid: 79622e2e20d0e334a8dcd6dc886bfd98
   - enabled: 1
-    path: Assets/SYA_Scenes/TestScene.unity
+    path: Assets/SYA_Scenes/SYA_MapLoadScene.unity
     guid: 83cff8b998dcd3f4f98414fea858a95d
   m_configObjects: {}

@@ -47,7 +47,10 @@ public class SYA_BlockMoving : MonoBehaviourPun
     void Update()
     {
         if (photonView.IsMine == false) return;
-        switch(moveState)
+        if (GetComponent<SYA_BlockNet>().introEnd) return;
+        Time.timeScale = 1;
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+        switch (moveState)
         {
             case BlockMoveState.ToOneFromStart:
                 OnChangePos(Pos1.transform, BlockMoveState.ToTwoFromOne);

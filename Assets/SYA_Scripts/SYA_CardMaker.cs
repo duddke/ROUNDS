@@ -31,8 +31,12 @@ public class SYA_CardMaker : MonoBehaviourPun
             for (int i = 0; i < countMax; i++)
             {
                 int ran = Random.Range(0, card.Count);
+                if (exran == ran)
+                {
+                    i--;
+                }
                 exran = ran;
-                PhotonNetwork.Instantiate(card[ran].name, cardTr[i].position, Quaternion.identity);
+                PhotonNetwork.Instantiate(card[ran].name, cardTr[i].position, cardTr[i].rotation);
                 //GameObject map = Instantiate(card[ran], tr);
                 //map.transform.position = cardTr[i].position;
                 if (i < countMax)

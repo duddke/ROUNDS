@@ -15,8 +15,10 @@ public class SYA_CardUI : MonoBehaviourPun, IPointerEnterHandler, IPointerExitHa
 
     private void Awake()
     {
+
         tr = GameObject.Find("Canvas").transform;
         gameObject.transform.SetParent(tr);
+
     }
 
     // Start is called before the first frame update
@@ -79,7 +81,7 @@ public class SYA_CardUI : MonoBehaviourPun, IPointerEnterHandler, IPointerExitHa
             if (photonView.IsMine)
             {
                 //반영할 거
-                photonView.RPC("ChangeCard", RpcTarget.MasterClient, gameObject.name);
+                photonView.RPC("ChangeCard", RpcTarget.All, gameObject.name);
                 //ChangeCard(gameObject.name);
             }
         }
@@ -88,7 +90,7 @@ public class SYA_CardUI : MonoBehaviourPun, IPointerEnterHandler, IPointerExitHa
             if (!photonView.IsMine)
             {
                 //반영할 거
-                photonView.RPC("ChangeCard", RpcTarget.MasterClient, gameObject.name);
+                photonView.RPC("ChangeCard", RpcTarget.All, gameObject.name);
                 //ChangeCard(gameObject.name);
             }
         }

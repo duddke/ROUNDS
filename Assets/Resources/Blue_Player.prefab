@@ -198,9 +198,6 @@ MonoBehaviour:
   FirePos: {fileID: 6317373245281101054}
   t_mousePos: {x: 0, y: 0}
   t_direction: {x: 0, y: 0}
-  nomalBullet: 1
-  followBullet: 0
-  bounceBullet: 0
 --- !u!1 &6317373243734226827
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +441,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpbar: {fileID: 6317373243734226826}
+  maxHp: 100
+  curHp: 100
+  creatTime: 5
+  hugeHp: 0
+  poisonHp: 0
 --- !u!1 &6317373244818352208
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,8 +529,8 @@ SpriteRenderer:
   m_SortingLayerID: 458153837
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1246092267, guid: 3d5822607f6ecbe41bbf0c7273ca202b, type: 3}
-  m_Color: {r: 0, g: 0.22760792, b: 0.8962264, a: 1}
+  m_Sprite: {fileID: -1497236635, guid: aafbb75525e1e2648bad65e4ea79ca77, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -576,7 +578,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.28, y: 0.35}
+    oldSize: {x: 0.26, y: 0.35}
     newSize: {x: 0.26, y: 0.35}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -598,6 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCreated: 0
+  nicName: 
   state: 0
   speed: 2
   maxSpeed: 3
@@ -619,9 +622,6 @@ MonoBehaviour:
   FirePos: {fileID: 6317373245281101054}
   t_mousePos: {x: 0, y: 0}
   t_direction: {x: 0, y: 0}
-  nomalBullet: 0
-  followBullet: 0
-  bounceBullet: 0
 --- !u!95 &6317373244694566283
 Animator:
   serializedVersion: 4
@@ -632,7 +632,7 @@ Animator:
   m_GameObject: {fileID: 6317373244818352208}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e8dfd9cb77187f9439b0c5a1cef85f38, type: 2}
+  m_Controller: {fileID: 9100000, guid: 98586b0c1cfd8ac40ac2fa02681b6f3c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
