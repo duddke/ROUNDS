@@ -15,6 +15,7 @@ TagManager:
   - Water
   - UI
   - BackBlock
+  - Back
   - 
   - 
   - 
@@ -35,8 +36,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Explosion
   - Player
   - Bullet
   - Wall
