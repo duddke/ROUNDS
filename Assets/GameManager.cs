@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
     public GameObject RedPlayer;
 
+    public List<GameObject> Map;
+
     //A가 다이가 된 횟수
     public int AdieCount = 0;
     //B가 다이가 된 횟수
@@ -212,7 +214,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
         //1초 뒤
         currentTime += Time.deltaTime;
-        if (currentTime > 0.3f)
+        if (currentTime > 0.5f)
         {
             currentTime = 0;
             //만약 둘 중 횟수가 2라면

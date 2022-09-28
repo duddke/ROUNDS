@@ -78,14 +78,19 @@ public class SYA_BlockNet : MonoBehaviourPun
                     //OuttroBlock();
                 }
             }
-            if (no)
+            if (GameManager.Instance.gameRule == GameManager.GameRule.DuelResult)
             {
-                transform.position = Vector2.Lerp(transform.position, pos, Time.deltaTime * 2);
-                if (Vector2.Distance(transform.position, pos) < 0.2)
+                OuttroBlock();
+
+                if (no)
                 {
-                    //상태바꾸고, 맵 바꾸고
-                    no = false;
-                    print("11");
+                    transform.position = Vector2.Lerp(transform.position, pos, Time.deltaTime * 10);
+                    if (Vector2.Distance(transform.position, pos) < 0.2)
+                    {
+                        //상태바꾸고, 맵 바꾸고
+                        no = false;
+                        print("11");
+                    }
                 }
             }
         }

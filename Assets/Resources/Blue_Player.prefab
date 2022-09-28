@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6631498301760994431}
   - component: {fileID: 6837426730847168375}
   m_Layer: 30
-  m_Name: FirePos
+  m_Name: FirePos_Blue_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,6 +488,7 @@ MonoBehaviour:
   creatTime: 5
   hugeHp: 0
   poisonHp: 0
+  bigBullet: 0
 --- !u!114 &8585805457652401484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,7 +619,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 0.2
   m_LinearDrag: 0
-  m_AngularDrag: 100
+  m_AngularDrag: 1000
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0

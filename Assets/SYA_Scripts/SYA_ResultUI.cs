@@ -10,6 +10,8 @@ public class SYA_ResultUI : MonoBehaviourPun
     public Text duelResult;
     //¶ó¿îµå°á°ú UI
     public Text roundResult;
+    //¹è°æÁö
+    public Image bgUI;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +53,7 @@ public class SYA_ResultUI : MonoBehaviourPun
     [PunRPC]
     void RpcDuelResultUI(int a,int b)
     {
+        bgUI.enabled = true;
         duelResult.text = "Á×ÀÎ È½¼ö : A " + a + " : B " + b;
         duelResult.enabled = true;
     }
@@ -69,12 +72,5 @@ public class SYA_ResultUI : MonoBehaviourPun
         roundResult.text = "ÀÌ±ä È½¼ö : A " + a + " : B " + b;
         roundResult.enabled = true;
         ra = true;
-        currentTime += Time.deltaTime;
-        if (currentTime > 0.3f)
-        {
-            currentTime = 0;
-            //UI¼û±â±â
-            roundResult.enabled = false;
-        }
     }
 }

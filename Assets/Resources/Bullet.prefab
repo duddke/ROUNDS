@@ -117,6 +117,7 @@ MonoBehaviour:
   quickShoot: 0
   speedDouble: 0
   bigBullet: 0
+  scaleSpeed: 1
 --- !u!50 &-6105980940727492201
 Rigidbody2D:
   serializedVersion: 4

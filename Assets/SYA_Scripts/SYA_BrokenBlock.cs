@@ -19,6 +19,7 @@ public class SYA_BrokenBlock : MonoBehaviourPun
     }*/
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!photonView.IsMine) return;
         if(collision.gameObject.layer==30)
             PhotonNetwork.Destroy(gameObject);
     }

@@ -69,35 +69,35 @@ public class SY_FirePos : MonoBehaviourPun
         SY_Bullet syBullet = bullet.GetComponent<SY_Bullet>();
         if (red)
         {
-            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.redCard[0]; // 일반총알
-            bullet.GetComponent<SY_Bullet>().bigBullet = SYA_CardManager.Instance.redCard[1]; // big Bullet 총알 크기 증가
-            bullet.GetComponent<SY_Bullet>().bounceBullet = SYA_CardManager.Instance.redCard[2];  // 바운스 총알
+            syBullet.barrageBullet = SYA_CardManager.Instance.redCard[0]; // 일반총알
+            syBullet.bigBullet = SYA_CardManager.Instance.redCard[1]; // big Bullet 총알 크기 증가
+            syBullet.bounceBullet = SYA_CardManager.Instance.redCard[2];  // 바운스 총알
 
-            bullet.GetComponent<SY_Bullet>().barrageBullet= SYA_CardManager.Instance.redCard[3]; //brawler
-            bullet.GetComponent<SY_Bullet>().barrageBullet= SYA_CardManager.Instance.redCard[4]; //chase
+            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[3]; //brawler
+            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[4]; //chase
 
-            bullet.GetComponent<SY_Bullet>().poison = SYA_CardManager.Instance.redCard[5]; // hp 점점 감소
-            bullet.GetComponent<SY_Bullet>().huge = SYA_CardManager.Instance.redCard[6];  // hp증가
-            bullet.GetComponent<SY_Bullet>().followBullet = SYA_CardManager.Instance.redCard[7];  // 유도탄
-            bullet.GetComponent<SY_Bullet>().quickShoot = SYA_CardManager.Instance.redCard[8]; // Quick shoot 총알 속도 증가
+            syBullet.poison = SYA_CardManager.Instance.redCard[5]; // hp 점점 감소
+            syBullet.huge = SYA_CardManager.Instance.redCard[6];  // hp증가
+            syBullet.followBullet = SYA_CardManager.Instance.redCard[7];  // 유도탄
+            syBullet.quickShoot = SYA_CardManager.Instance.redCard[8]; // Quick shoot 총알 속도 증가
 
-            bullet.GetComponent<SY_Bullet>().barrageBullet= SYA_CardManager.Instance.redCard[9]; //Burst
+            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[9]; //Burst
         }
         else
         {
-            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[0]; // 일반총알
-            bullet.GetComponent<SY_Bullet>().bigBullet = SYA_CardManager.Instance.blueCard[1]; // big Bullet 총알 크기 증가
-            bullet.GetComponent<SY_Bullet>().bounceBullet = SYA_CardManager.Instance.blueCard[2];  // 바운스 총알
+            syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[0]; // 일반총알
+            syBullet.bigBullet = SYA_CardManager.Instance.blueCard[1]; // big Bullet 총알 크기 증가
+            syBullet.bounceBullet = SYA_CardManager.Instance.blueCard[2];  // 바운스 총알
 
-            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[3]; //brawler
-            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[4]; //chase
+            syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[3]; //brawler
+            syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[4]; //chase
 
-            bullet.GetComponent<SY_Bullet>().poison = SYA_CardManager.Instance.blueCard[5]; // hp 점점 감소
-            bullet.GetComponent<SY_Bullet>().huge = SYA_CardManager.Instance.blueCard[6];  // hp증가
-            bullet.GetComponent<SY_Bullet>().followBullet = SYA_CardManager.Instance.blueCard[7];  // 유도탄
-            bullet.GetComponent<SY_Bullet>().quickShoot = SYA_CardManager.Instance.blueCard[8]; // Quick shoot 총알 속도 증가
+            syBullet.poison = SYA_CardManager.Instance.blueCard[5]; // hp 점점 감소
+            syBullet.huge = SYA_CardManager.Instance.blueCard[6];  // hp증가
+            syBullet.followBullet = SYA_CardManager.Instance.blueCard[7];  // 유도탄
+            syBullet.quickShoot = SYA_CardManager.Instance.blueCard[8]; // Quick shoot 총알 속도 증가
 
-            bullet.GetComponent<SY_Bullet>().barrageBullet = SYA_CardManager.Instance.blueCard[9]; //Burst
+            syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[9]; //Burst
         }
         bullet.GetComponent<SY_Bullet>().red = red;
         bullet.GetComponent<SY_Bullet>().dir = dir;

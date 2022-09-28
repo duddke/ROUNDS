@@ -17,7 +17,7 @@ public class SYA_WinnerUI : MonoBehaviourPun
     void Update()
     {
         if (!photonView.IsMine) return;
-        if (GameManager.Instance.gameRule == GameManager.GameRule.DuelResult)
+        if (GameManager.Instance.gameRule == GameManager.GameRule.GameEnd)
         {
             if (!wins)
             {

@@ -5,16 +5,17 @@ using Photon.Pun;
 
 public class SYA_MapManager : MonoBehaviourPun
 {
-    public List<GameObject> MAP = new List<GameObject>();
+
     // Start is called before the first frame update
     void Awake()
     {
         if (photonView.IsMine)
         {
-            int ran = Random.Range(0, MAP.Count); 
-                PhotonNetwork.Instantiate(MAP[ran].name, Vector2.zero, Quaternion.identity);
-/*                GameObject map = Instantiate(MAP[ran]);
-                map.transform.position = Vector2.zero;*/
+            int ran = Random.Range(0, GameManager.Instance.Map.Count);
+            PhotonNetwork.Instantiate(GameManager.Instance.Map[ran].name, Vector2.zero, Quaternion.identity);
+            GameManager.Instance.Map.RemoveAt(ran);
+            /*                GameObject map = Instantiate(MAP[ran]);
+                            map.transform.position = Vector2.zero;*/
         }
 
     }
