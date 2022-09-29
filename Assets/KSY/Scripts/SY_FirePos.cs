@@ -7,6 +7,8 @@ public class SY_FirePos : MonoBehaviourPun
 {
     [SerializeField] GameObject BulletFactory = null;
     [SerializeField] Transform FirePos = null;
+    AudioSource bulletImpact;
+    public AudioClip clip; 
 
     Camera m_cam = null;
     public Vector2 t_mousePos;
@@ -23,6 +25,7 @@ public class SY_FirePos : MonoBehaviourPun
     void Start()
     {
         m_cam = Camera.main;
+        bulletImpact = GetComponent<AudioSource>(); 
 /*        SY_Bullet.instance.BarrageBullet();
         SY_Bullet.instance.FollowBullet();
         SY_Bullet.instance.BounceBullet();
@@ -49,6 +52,8 @@ public class SY_FirePos : MonoBehaviourPun
         if (Input.GetButtonDown("Fire1"))
         {
             TryFire(rotation,gameObject.name.Contains("Red_Player"));
+            print("발사");
+            bulletImpact.PlayOneShot(clip);
         }
 
         //FirePos.right = t_direction;
@@ -73,15 +78,15 @@ public class SY_FirePos : MonoBehaviourPun
             syBullet.bigBullet = SYA_CardManager.Instance.redCard[1]; // big Bullet 총알 크기 증가
             syBullet.bounceBullet = SYA_CardManager.Instance.redCard[2];  // 바운스 총알
 
-            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[3]; //brawler
-            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[4]; //chase
+            syBullet.brawler = SYA_CardManager.Instance.redCard[3]; //brawler 3초동안 체력 증가.
+            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[4]; //chase 캐릭터 이동순간      미완료
 
             syBullet.poison = SYA_CardManager.Instance.redCard[5]; // hp 점점 감소
-            syBullet.huge = SYA_CardManager.Instance.redCard[6];  // hp증가
+            syBullet.huge = SYA_CardManager.Instance.redCard[6];  // hp10 w dw증가
             syBullet.followBullet = SYA_CardManager.Instance.redCard[7];  // 유도탄
             syBullet.quickShoot = SYA_CardManager.Instance.redCard[8]; // Quick shoot 총알 속도 증가
 
-            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[9]; //Burst
+            syBullet.cannon = SYA_CardManager.Instance.redCard[9]; // Burst(cannon) 데미지 2배 감소
         }
         else
         {
@@ -89,7 +94,7 @@ public class SY_FirePos : MonoBehaviourPun
             syBullet.bigBullet = SYA_CardManager.Instance.blueCard[1]; // big Bullet 총알 크기 증가
             syBullet.bounceBullet = SYA_CardManager.Instance.blueCard[2];  // 바운스 총알
 
-            syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[3]; //brawler
+            syBullet.brawler = SYA_CardManager.Instance.blueCard[3]; //brawler 3초동안 체력 증가.
             syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[4]; //chase
 
             syBullet.poison = SYA_CardManager.Instance.blueCard[5]; // hp 점점 감소
@@ -97,7 +102,7 @@ public class SY_FirePos : MonoBehaviourPun
             syBullet.followBullet = SYA_CardManager.Instance.blueCard[7];  // 유도탄
             syBullet.quickShoot = SYA_CardManager.Instance.blueCard[8]; // Quick shoot 총알 속도 증가
 
-            syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[9]; //Burst
+            syBullet.cannon = SYA_CardManager.Instance.blueCard[9]; // Burst(cannon) 데미지 2배 감소
         }
         bullet.GetComponent<SY_Bullet>().red = red;
         bullet.GetComponent<SY_Bullet>().dir = dir;
