@@ -21,7 +21,7 @@ public class SY_Bullet : MonoBehaviourPun
     {
         instance = this;
     }
-    public bool red; 
+    public bool red;
 
     // Start is called before the first frame update
     void Start()
@@ -72,12 +72,20 @@ public class SY_Bullet : MonoBehaviourPun
         {
             BigBullet();
         }
+        if (brawler) //0928
+        {
+            Brawler();
+        }
+        if (cannon) //0928
+        {
+            Cannon();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             transform.right = rb.velocity;
         }
@@ -146,14 +154,33 @@ public class SY_Bullet : MonoBehaviourPun
         rb.AddForce(dir * bulletSpeed);
     }
 
+    public bool cannon;
+    // 데미지 HP 2배 감소 
+    public void Cannon()   // 0928
+    {
+        print("cannon");
+        dir.Normalize();
+        // 발사하고 싶다.
+        rb.AddForce(dir * bulletSpeed);
+    }
+
+    public bool brawler;
+    // 3초 동안 HP 증가
+    public void Brawler() //0928
+    {
+        dir.Normalize();
+        // 발사하고 싶다.
+        rb.AddForce(dir * bulletSpeed);
+    }
+
     // 총알 속도 증가
     public bool quickShoot;
     public void QuickShoot()
     {
         dir.Normalize();
         rb.AddForce(dir * bulletSpeed * 2f);
-    }  
-    
+    }
+
     // 캐릭터 이동속도 증가
     public bool speedDouble;
     public void Chase()
@@ -169,14 +196,13 @@ public class SY_Bullet : MonoBehaviourPun
     [SerializeField] [Range(1f, 5f)] float scaleSpeed = 1f;
     public void BigBullet()
     {
-
         dir.Normalize();
 
         rb.AddForce(dir * bulletSpeed);
 
         StartCoroutine("OnBigBullet");
-
     }
+
     IEnumerator OnBigBullet()
     {
         float coCurrentTime = 0;
@@ -194,29 +220,42 @@ public class SY_Bullet : MonoBehaviourPun
         if (collision.gameObject.tag == "Wall")
         {
             photonView.RPC("RpcCreate", RpcTarget.MasterClient, transform.position);
-               // transform.position - Vector3.forward;
+            // transform.position - Vector3.forward;
         }
 
         if (!bounceBullet)
             PhotonNetwork.Destroy(gameObject);
 
-        if (collision.gameObject.tag == "Player") // 충돌 게임오브젝트를 플레이어로 교체
+        if (collision.gameObject.name.Contains("Player")) // 충돌 게임오브젝트를 플레이어로 교체
         {
-            if (huge)
-            {
-                if (collision.gameObject.name.Contains("Red"))
-                    GameObject.Find("Blue_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
-                else
-                    GameObject.Find("Red_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
-                //GameObject.Find("Player").GetComponentInChildren<SY_HpBar>().HugeHp();
-            }
+
             if (poison)
             {
                 collision.gameObject.GetComponentInChildren<SY_HpBar>().PoisonHp();
-                //GameObject.Find("Player").GetComponentInChildren<SY_HpBar>().PoisonHp();
+            }
+            if (cannon)
+            {
+                collision.gameObject.GetComponentInChildren<SY_HpBar>().Cannon(); //0928
+            }
 
+            if (huge)
+            {
+                if (collision.gameObject.name.Contains("Red"))
+                    GameObject.FindWithTag("Blue_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
+                else
+                    GameObject.FindWithTag("Red_Player").GetComponentInChildren<SY_HpBar>().HugeHp();
+            }
+            
+            if (brawler) //0928
+            {
+                if (collision.gameObject.name.Contains("Blue"))
+                    GameObject.FindWithTag("Red_Player").GetComponentInChildren<SY_HpBar>().Brawler();
+                    
+                else
+                    GameObject.FindWithTag("Blue_Player").GetComponentInChildren<SY_HpBar>().Brawler();
             }
         }
+
         if (collision.gameObject.tag == "Wall")
         {
             if (bounceBullet)
@@ -239,7 +278,7 @@ public class SY_Bullet : MonoBehaviourPun
 
 
     float currentTime;
-    
+
     // 유도 미사일 
     IEnumerator OnFollowBullet()
     {
@@ -250,20 +289,20 @@ public class SY_Bullet : MonoBehaviourPun
             if (currentTime < 3)
             {
 
-            coCurrentTime += Time.deltaTime;
-            
-            dir = (target.transform.position - transform.position);
-            dir.Normalize();
+                coCurrentTime += Time.deltaTime;
 
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            rotTarget = Quaternion.AngleAxis(angle, Vector3.forward);
+                dir = (target.transform.position - transform.position);
+                dir.Normalize();
 
-            // 회전속도
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * rotSpeed);
-            //rb.velocity = new Vector2(dir.x * speed, dir.y * speed);
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                rotTarget = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            // 총알 속도
-            rb.velocity = transform.right * 5f;
+                // 회전속도
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * rotSpeed);
+                //rb.velocity = new Vector2(dir.x * speed, dir.y * speed);
+
+                // 총알 속도
+                rb.velocity = transform.right * 5f;
             }
 
             dir.Normalize();

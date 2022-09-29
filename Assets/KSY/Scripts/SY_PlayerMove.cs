@@ -75,7 +75,7 @@ public class SY_PlayerMove : MonoBehaviourPun
             photonView.RPC("RpcMove", RpcTarget.MasterClient, h);
 
             #region 벽타기
-            
+
             // 수평방향으로 이동할 때 DrawRay
             //레이 읽는 알피시
             photonView.RPC("RpcWallWalk", RpcTarget.MasterClient, h, v); 

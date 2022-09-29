@@ -114,6 +114,8 @@ MonoBehaviour:
   bounceBullet: 0
   huge: 0
   poison: 0
+  cannon: 0
+  brawler: 0
   quickShoot: 0
   speedDouble: 0
   bigBullet: 0
