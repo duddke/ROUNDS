@@ -80,7 +80,7 @@ public class SY_FirePos : MonoBehaviourPun
             syBullet.bounceBullet = SYA_CardManager.Instance.redCard[2];  // 바운스 총알
 
             syBullet.brawler = SYA_CardManager.Instance.redCard[3]; //brawler 3초동안 체력 증가.
-            syBullet. chase= SYA_CardManager.Instance.redCard[4]; //chase 캐릭터 이동순간      미완료
+            syBullet.chase= SYA_CardManager.Instance.redCard[4]; //chase 캐릭터 이동순간      미완료
 
             syBullet.poison = SYA_CardManager.Instance.redCard[5]; // hp 점점 감소
             syBullet.huge = SYA_CardManager.Instance.redCard[6];  // hp +10증가

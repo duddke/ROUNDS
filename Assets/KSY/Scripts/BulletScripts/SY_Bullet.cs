@@ -29,14 +29,8 @@ public class SY_Bullet : MonoBehaviourPun
             GetComponent<Collider2D>().enabled = false;
         }
 
-        if (!red)
-        {
-            target = GameObject.Find("Red_Player");
-        }
-        else
-        {
-            target = GameObject.Find("Blue_Player");
-        }
+        if (PhotonNetwork.IsMasterClient)
+            photonView.RPC("RpcFindTarget", RpcTarget.MasterClient, red);
         //dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
         //불값에 따라 함수 실행
@@ -91,6 +85,18 @@ public class SY_Bullet : MonoBehaviourPun
         }
     }
 
+    [PunRPC]
+    void RpcFindTarget(bool red)
+    {
+        if (red)
+        {
+            target = GameObject.FindWithTag("Blue_Player");
+        }
+        else
+        {
+            target = GameObject.FindWithTag("Red_Player");
+        }
+    }
 
     public bool barrageBullet;
     // 일반 총알
@@ -207,18 +213,21 @@ public class SY_Bullet : MonoBehaviourPun
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+        bool destroy = false;
         if (collision.gameObject.tag == "Wall")
         {
-            photonView.RPC("RpcCreate", RpcTarget.MasterClient, transform.position);
+            photonView.RPC("RpcCreate", RpcTarget.All, transform.position);
+            //PhotonNetwork.Instantiate("WFX_Explosion Small", transform.position, Quaternion.identity);
             // transform.position - Vector3.forward;
         }
 
         if (!bounceBullet)
-            PhotonNetwork.Destroy(gameObject);
+            destroy = true;
 
         if (collision.gameObject.name.Contains("Player")) // 충돌 게임오브젝트를 플레이어로 교체
         {
-
+            destroy = true;
             if (poison)
             {
                 collision.gameObject.GetComponentInChildren<SY_HpBar>().PoisonHp();
@@ -254,16 +263,27 @@ public class SY_Bullet : MonoBehaviourPun
                 count += 1;
                 if (count > 2)
                 {
-                    PhotonNetwork.Destroy(gameObject);
+                    destroy = true;
                 }
             }
+        }
+        if(destroy)
+        {
+            //PhotonNetwork.Destroy(gameObject);
+            photonView.RPC("RpcDestroy", RpcTarget.All);
         }
     }
 
     [PunRPC]
     void RpcCreate(Vector3 dir)
     {
-        PhotonNetwork.Instantiate("WFX_Explosion Small", dir, Quaternion.identity);
+        Instantiate(explosion, dir, Quaternion.identity);
+    }
+
+    [PunRPC]
+    void RpcDestroy()
+    {
+        Destroy(gameObject);
     }
 
 

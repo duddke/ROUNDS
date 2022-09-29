@@ -29,7 +29,7 @@ public class SYA_ConnectionManager : MonoBehaviourPunCallbacks
         //접속 버튼을 비활성화 하자
         btnConnect.interactable = s.Length > 0;
 
-        print("OnValueChanged : " + s);
+        //print("OnValueChanged : " + s);
     }
 
     public void OnSubmit(string s)

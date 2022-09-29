@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using Photon.Pun;
 [RequireComponent(typeof(ParticleSystem))]
 public class CFX_AutoDestructShuriken : MonoBehaviour
 {
@@ -27,7 +27,7 @@ public class CFX_AutoDestructShuriken : MonoBehaviour
 					#endif
 				}
 				else
-					GameObject.Destroy(this.gameObject);
+					Destroy(this.gameObject);
 				break;
 			}
 		}

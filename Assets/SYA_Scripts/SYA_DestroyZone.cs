@@ -7,9 +7,10 @@ public class SYA_DestroyZone : MonoBehaviourPun
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!photonView.IsMine) return;
+        /*if (!photonView.IsMine) return;
         //ÃÑ¾Ë »èÁ¦
         if (collision.gameObject.layer == 30 && !collision.gameObject.GetComponent<SY_Bullet>().bounceBullet)
-            PhotonNetwork.Destroy(collision.gameObject);
+            PhotonNetwork.Destroy(collision.gameObject);*/
     }
+
 }

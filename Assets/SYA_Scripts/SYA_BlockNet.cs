@@ -89,7 +89,6 @@ public class SYA_BlockNet : MonoBehaviourPun
                     {
                         //상태바꾸고, 맵 바꾸고
                         no = false;
-                        print("11");
                     }
                 }
             }

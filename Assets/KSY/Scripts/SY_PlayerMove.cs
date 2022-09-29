@@ -65,9 +65,6 @@ public class SY_PlayerMove : MonoBehaviourPun
             Destroy(rb);
             GetComponent<Collider2D>().enabled = false;
         }
-
-        
-
         if (isCreated)
         {
             if ((gameObject.name.Contains("Red") && SYA_CardManager.Instance.redCard[4])||
@@ -136,7 +133,7 @@ public class SY_PlayerMove : MonoBehaviourPun
                     {
                         // 상하로 이동하고 싶다.
                         rb.AddForce(wallWalkDir);
-                        isJump = false;
+                        photonView.RPC("RpcIsJump", RpcTarget.All, false);
                         // 최대 스피드 maxSpeed 를 넘지 못하게 함
                         if (rb.velocity.y > maxSpeed)
                             rb.velocity = new Vector2(rb.velocity.x, maxSpeed);
@@ -244,13 +241,13 @@ public class SY_PlayerMove : MonoBehaviourPun
         if (collision.gameObject != null)
         {
             // 점프 없음
-            isJump = false;
+            photonView.RPC("RpcIsJump", RpcTarget.All, false);
             print("ground");
         }
         if(collision.gameObject.layer==31)
         {
 
-            isJump = false;
+            photonView.RPC("RpcIsJump", RpcTarget.All, false);
         }
         // 총알에 맞으면
         if (collision.gameObject.layer == 30)
@@ -260,17 +257,10 @@ public class SY_PlayerMove : MonoBehaviourPun
             //GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    [PunRPC]
+    void RpcIsJump(bool jump)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(isJump);
-        }
-
-        else
-        {
-            isJump = (bool)stream.ReceiveNext();
-        }
+        isJump = jump;
     }
 
 }
