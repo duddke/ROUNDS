@@ -65,15 +65,31 @@ public class SY_PlayerMove : MonoBehaviourPun
             Destroy(rb);
             GetComponent<Collider2D>().enabled = false;
         }
+
+        
+
         if (isCreated)
         {
-            // 사용자 입력 받기
-            h = Input.GetAxis("Horizontal") * speed;
-            v = Input.GetAxis("Vertical") * speed;
-            //Vector2 moveVec = isHorizontalMove ? new Vector2(hInput, 0) : new Vector2(0, vInput);
-            //rb.velocity = moveVec * speed;
-            photonView.RPC("RpcMove", RpcTarget.MasterClient, h);
+            if ((gameObject.name.Contains("Red") && SYA_CardManager.Instance.redCard[4])||
+                (gameObject.name.Contains("Blue") && SYA_CardManager.Instance.blueCard[4]))
+            {
+                Debug.Log("playmovespeed");
+                h = Input.GetAxis("Horizontal") * speed * 10f;
+                v = Input.GetAxis("Vertical") * speed * 10f;
 
+                photonView.RPC("RpcMove", RpcTarget.MasterClient, h);
+            }
+            else
+            {
+                // 사용자 입력 받기
+                h = Input.GetAxis("Horizontal") * speed;
+                v = Input.GetAxis("Vertical") * speed;
+                //Vector2 moveVec = isHorizontalMove ? new Vector2(hInput, 0) : new Vector2(0, vInput);
+                //rb.velocity = moveVec * speed;
+                photonView.RPC("RpcMove", RpcTarget.MasterClient, h);
+            }
+
+           
             #region 벽타기
 
             // 수평방향으로 이동할 때 DrawRay
@@ -98,7 +114,7 @@ public class SY_PlayerMove : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
 
-            // 이동하고 싶다.
+            //이동하고 싶다.
             if (moveDir.sqrMagnitude > 0)
             {
                 rb.AddForce(moveDir);
@@ -108,7 +124,7 @@ public class SY_PlayerMove : MonoBehaviourPun
                 else if (rb.velocity.x < -maxSpeed)
                     rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
             }
-            //
+
             if (wallWalkDir.sqrMagnitude > 0)
             {
                 //벽타기 가능할 때 이동

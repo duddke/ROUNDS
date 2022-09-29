@@ -80,7 +80,7 @@ public class SY_HpBar : MonoBehaviourPun
     void RpcOnBrawler()
     {
         Debug.Log("rpconbrawler");
-        curHp += 3;
+        curHp += 5;
 
         if (curHp <= 0)
         {

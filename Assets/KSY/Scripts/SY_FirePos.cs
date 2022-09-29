@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class SY_FirePos : MonoBehaviourPun
 {
-    [SerializeField] GameObject BulletFactory = null;
+    //[SerializeField] GameObject BulletFactory = null;
     [SerializeField] Transform FirePos = null;
     AudioSource bulletImpact;
     public AudioClip clip; 
@@ -14,6 +14,7 @@ public class SY_FirePos : MonoBehaviourPun
     public Vector2 t_mousePos;
     public Vector2 t_direction;
 
+    public bool chase;
 
     public static SY_FirePos instance;
 
@@ -79,10 +80,10 @@ public class SY_FirePos : MonoBehaviourPun
             syBullet.bounceBullet = SYA_CardManager.Instance.redCard[2];  // 바운스 총알
 
             syBullet.brawler = SYA_CardManager.Instance.redCard[3]; //brawler 3초동안 체력 증가.
-            syBullet.barrageBullet= SYA_CardManager.Instance.redCard[4]; //chase 캐릭터 이동순간      미완료
+            syBullet. chase= SYA_CardManager.Instance.redCard[4]; //chase 캐릭터 이동순간      미완료
 
             syBullet.poison = SYA_CardManager.Instance.redCard[5]; // hp 점점 감소
-            syBullet.huge = SYA_CardManager.Instance.redCard[6];  // hp10 w dw증가
+            syBullet.huge = SYA_CardManager.Instance.redCard[6];  // hp +10증가
             syBullet.followBullet = SYA_CardManager.Instance.redCard[7];  // 유도탄
             syBullet.quickShoot = SYA_CardManager.Instance.redCard[8]; // Quick shoot 총알 속도 증가
 
@@ -95,7 +96,7 @@ public class SY_FirePos : MonoBehaviourPun
             syBullet.bounceBullet = SYA_CardManager.Instance.blueCard[2];  // 바운스 총알
 
             syBullet.brawler = SYA_CardManager.Instance.blueCard[3]; //brawler 3초동안 체력 증가.
-            syBullet.barrageBullet = SYA_CardManager.Instance.blueCard[4]; //chase
+            syBullet.chase = SYA_CardManager.Instance.blueCard[4]; //chase
 
             syBullet.poison = SYA_CardManager.Instance.blueCard[5]; // hp 점점 감소
             syBullet.huge = SYA_CardManager.Instance.blueCard[6];  // hp증가

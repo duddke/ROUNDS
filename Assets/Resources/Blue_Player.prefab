@@ -197,11 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa3c610f5f0eee4f8fbe8fce4888e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletFactory: {fileID: 691806882845684985, guid: 92ab67a5581bb674dbda747cb39819bf, type: 3}
   FirePos: {fileID: 6317373245281101054}
   clip: {fileID: 8300000, guid: 65a8e1f13143c47ab9b96881eac40dff, type: 3}
   t_mousePos: {x: 0, y: 0}
   t_direction: {x: 0, y: 0}
+  chase: 0
 --- !u!114 &6631498301760994431
 MonoBehaviour:
   m_ObjectHideFlags: 0

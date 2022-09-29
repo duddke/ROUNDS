@@ -109,15 +109,14 @@ MonoBehaviour:
   barrageBullet: 0
   followBullet: 0
   followSpeed: 100
-  creatTime: 1
-  BBSpeed: 500
+  BBSpeed: 300
   bounceBullet: 0
   huge: 0
   poison: 0
   cannon: 0
   brawler: 0
   quickShoot: 0
-  speedDouble: 0
+  chase: 0
   bigBullet: 0
   scaleSpeed: 1
 --- !u!50 &-6105980940727492201
