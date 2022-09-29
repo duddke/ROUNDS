@@ -38,6 +38,7 @@ public class SYA_BlockMoving : MonoBehaviourPun
     public float speed = 5;
     public float time=0;
 
+
     void Start()
     {
         
@@ -48,7 +49,8 @@ public class SYA_BlockMoving : MonoBehaviourPun
     {
         Time.timeScale = 1;
         if (photonView.IsMine == false) return;
-        if (GetComponent<SYA_BlockNet>().introEnd) return;
+        if (!GetComponent<SYA_BlockNet>().introEnd) return;
+        if (GameManager.Instance.gameRule != GameManager.GameRule.Duel) return;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         switch (moveState)
         {

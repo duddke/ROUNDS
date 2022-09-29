@@ -10,6 +10,7 @@ public class SYA_MAP8Moving : MonoBehaviourPun
     public float speed = 2;
     float yPos;
     public float length=5;
+    public GameObject go;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,7 @@ public class SYA_MAP8Moving : MonoBehaviourPun
     {
         if (!photonView.IsMine)
             return;
-        if (GetComponent<SYA_BlockNet>().introEnd)
+        if (go.GetComponent<SYA_BlockNet>().introEnd)
         {
             runTime += Time.fixedDeltaTime * speed;
             yPos = MathF.Sin(runTime) * length;
