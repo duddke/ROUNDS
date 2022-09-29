@@ -22,6 +22,7 @@ public class SYA_RedSellect : MonoBehaviourPun
 
     void cl()
     {
+        if (!photonView.IsMine) return;
         photonView.RPC("RpcCardSellectRed", RpcTarget.MasterClient);
     }
 

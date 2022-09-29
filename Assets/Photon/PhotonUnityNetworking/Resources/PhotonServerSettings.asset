@@ -93,6 +93,10 @@ MonoBehaviour:
   - RpcCreate
   - RpcMapCreate
   - RpcOnBrawler
+  - RpcBack
+  - RpcFreezeAll
+  - RpcFindTarget
+  - RpcIsJump
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

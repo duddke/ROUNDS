@@ -156,13 +156,20 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     public void CardSellectRed()
     {
         //if (!GameObject.Find("Canvas").GetComponent<PhotonView>().IsMine) return;
-        //방장이 주인이 아닐 경우 리턴
-        redOnClick = true;
+//방장이 주인이 아닐 경우 리턴
+            print("redOnClick");
+            redOnClick = true;
+        
     }
 
     bool blueOnClick;
     //결정버튼 누르면 호출
     public void CardSellectBlue()
+    {
+        photonView.RPC("RpcCardSellectBlue", RpcTarget.All);
+    }
+    [PunRPC]
+    void RpcCardSellectBlue()
     {
         //if (GameObject.Find("Canvas").GetComponent<PhotonView>().IsMine) return;
         //방장이 주인일 경우 리턴
