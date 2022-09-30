@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     {
         //1초 뒤
         currentTime += Time.deltaTime;
-        if (currentTime > 0.5f)
+        if (currentTime > 1f)
         {
             currentTime = 0;
             //누군가 라운드 수가 3이 되면

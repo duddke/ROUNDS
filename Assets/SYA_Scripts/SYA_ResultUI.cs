@@ -13,6 +13,14 @@ public class SYA_ResultUI : MonoBehaviourPun
     //배경지
     public Image bgUI;
 
+    public Image B1;
+    public Image B2;
+    public Image B3;
+
+    public Image R1;
+    public Image R2;
+    public Image R3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,8 +62,18 @@ public class SYA_ResultUI : MonoBehaviourPun
     void RpcDuelResultUI(int a,int b)
     {
         bgUI.enabled = true;
-        duelResult.text = "죽인 횟수 : A " + a + " : B " + b;
-        duelResult.enabled = true;
+        if (a == 0)
+            R1.enabled = true;
+        else if (a == 1)
+            R2.enabled = true;
+        else if (a == 2)
+            R3.enabled = true;
+        if (b == 0)
+            B1.enabled = true;
+        else if (b == 1)
+            B2.enabled = true;
+        else if (b == 2)
+            B3.enabled = true;
     }
 
     void RoundResultUI()
@@ -67,10 +85,15 @@ public class SYA_ResultUI : MonoBehaviourPun
     [PunRPC]
     void RpcRoundResultUI(int a, int b)
     {
-        duelResult.enabled = false;
-        //결과 UI보여주기
-        roundResult.text = "이긴 횟수 : A " + a + " : B " + b;
-        roundResult.enabled = true;
-        ra = true;
+        if(a==2)
+        {
+            R3.rectTransform.position = Vector3.Lerp(R3.rectTransform.position, new Vector3(0, 0, 0), Time.deltaTime * 50 );
+            R3.rectTransform.sizeDelta = Vector2.Lerp(R3.rectTransform.sizeDelta, new Vector2(600, 600), Time.deltaTime * 50f);
+        }
+        else
+        {
+            B3.rectTransform.position = Vector3.Lerp(B3.rectTransform.position, new Vector3(0, 0, 0), Time.deltaTime * 50f);
+            B3.rectTransform.sizeDelta = Vector2.Lerp(B3.rectTransform.sizeDelta, new Vector2(600, 600), Time.deltaTime * 50f);
+        }
     }
 }
