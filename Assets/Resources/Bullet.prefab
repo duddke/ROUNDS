@@ -108,7 +108,7 @@ MonoBehaviour:
   red: 0
   barrageBullet: 0
   followBullet: 0
-  followSpeed: 100
+  followSpeed: 10
   BBSpeed: 300
   bounceBullet: 0
   huge: 0

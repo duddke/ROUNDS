@@ -112,11 +112,13 @@ public class SY_Bullet : MonoBehaviourPun
     Quaternion rotTarget;
     public bool followBullet;
     public float followSpeed;
+    float curTime;
+    float creTime = 5;
     float rotSpeed = 10f;
     public void FollowBullet()
     {
         print("FollowBullet");
-        StopCoroutine("OnFollowBullet");
+        //StopCoroutine("OnFollowBullet");
         StartCoroutine("OnFollowBullet");
     }
 
@@ -267,7 +269,7 @@ public class SY_Bullet : MonoBehaviourPun
                 }
             }
         }
-        if(destroy)
+        if (destroy)
         {
             //PhotonNetwork.Destroy(gameObject);
             photonView.RPC("RpcDestroy", RpcTarget.All);
@@ -286,32 +288,38 @@ public class SY_Bullet : MonoBehaviourPun
         Destroy(gameObject);
     }
 
-
     // 유도 미사일 
     IEnumerator OnFollowBullet()
     {
         float coCurrentTime = 0;
-        while (coCurrentTime < 10.0f)
+
+        while (coCurrentTime < 50.0f)
         {
             coCurrentTime += Time.deltaTime;
 
-            dir = (target.transform.position - transform.position);
-            dir.Normalize();
+            if (coCurrentTime > 0.5f)
+            {
 
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            rotTarget = Quaternion.AngleAxis(angle, Vector3.forward);
+                dir = (target.transform.position - transform.position);
+                dir.Normalize();
 
-            // 회전속도
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * rotSpeed);
-            //rb.velocity = new Vector2(dir.x * speed, dir.y * speed);
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                rotTarget = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            // 총알 속도
+                // 회전속도
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * rotSpeed);
+                //rb.velocity = new Vector2(dir.x * speed, dir.y * speed);
+
+                // 총알 속도
+                dir.Normalize();
+                // 발사하고 싶다.
+                //rb.AddForce(dir * followSpeed);
+            }
             rb.velocity = transform.right * 5f;
-            dir.Normalize();
-            // 발사하고 싶다.
-            rb.AddForce(dir * followSpeed);
+
             yield return null;
         }
+
     }
 
 
