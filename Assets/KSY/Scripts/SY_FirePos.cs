@@ -64,6 +64,7 @@ public class SY_FirePos : MonoBehaviourPun
     void TryFire(Quaternion rot, bool red)
     {
         Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - FirePos.position;
+        dir.Normalize();
         photonView.RPC("RpcTryFire", RpcTarget.MasterClient, FirePos.position,rot,red, dir);
     }
     [PunRPC]
