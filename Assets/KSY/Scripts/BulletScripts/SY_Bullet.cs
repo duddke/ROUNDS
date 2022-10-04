@@ -112,8 +112,6 @@ public class SY_Bullet : MonoBehaviourPun
     Quaternion rotTarget;
     public bool followBullet;
     public float followSpeed;
-    float curTime;
-    float creTime = 5;
     float rotSpeed = 10f;
     public void FollowBullet()
     {
@@ -190,12 +188,12 @@ public class SY_Bullet : MonoBehaviourPun
 
     // 대형 총알
     public bool bigBullet;
-    [SerializeField] [Range(1f, 5f)] float scaleSpeed = 1f;
+    [SerializeField] [Range(1f, 5f)] float scaleSpeed;
     public void BigBullet()
     {
         dir.Normalize();
 
-        rb.AddForce(dir * bulletSpeed);
+        rb.AddForce(dir * bulletSpeed*2);
 
         StartCoroutine("OnBigBullet");
     }
@@ -227,7 +225,7 @@ public class SY_Bullet : MonoBehaviourPun
         if (!bounceBullet)
             destroy = true;
 
-        if (collision.gameObject.name.Contains("Player")) // 충돌 게임오브젝트를 플레이어로 교체
+        if (collision.gameObject.GetComponentInChildren<SY_HpBar>()) // 충돌 게임오브젝트를 플레이어로 교체
         {
             destroy = true;
             if (poison)
@@ -321,7 +319,4 @@ public class SY_Bullet : MonoBehaviourPun
         }
 
     }
-
-
-
 }
