@@ -40,16 +40,14 @@ public class SYA_CardUI : MonoBehaviourPun, IPointerEnterHandler, IPointerExitHa
         {
             if (photonView.IsMine)
             {
-                gameObject.transform.localScale = change;
-                go.enabled = false;
+                photonView.RPC("RpcOnMouse", RpcTarget.All, change);
             }
         }
         else
         {
             if (!photonView.IsMine)
-            {
-                gameObject.transform.localScale = change;
-                go.enabled = false;
+            { 
+                photonView.RPC("RpcOnMouse", RpcTarget.All, change);
             }
         }
     }
@@ -60,16 +58,14 @@ public class SYA_CardUI : MonoBehaviourPun, IPointerEnterHandler, IPointerExitHa
         {
             if (photonView.IsMine)
             {
-                gameObject.transform.localScale = sca;
-                go.enabled = true;
+                photonView.RPC("RpcOutMouse", RpcTarget.All, sca);
             }
         }
         else
         {
             if (!photonView.IsMine)
             {
-                gameObject.transform.localScale = sca;
-                go.enabled = true;
+                photonView.RPC("RpcOutMouse", RpcTarget.All, sca);
             }
         }
     }
@@ -146,5 +142,18 @@ public class SYA_CardUI : MonoBehaviourPun, IPointerEnterHandler, IPointerExitHa
             else if (cardname.Contains("9"))
                 SYA_CardManager.Instance.OnTenBlueCard();
         }
+    }
+
+    [PunRPC]
+    void RpcOnMouse(Vector3 c)
+    {
+        gameObject.transform.localScale = c;
+        go.enabled = false;
+    }
+    [PunRPC]
+    void RpcOutMouse(Vector3 o)
+    {
+        gameObject.transform.localScale = o;
+        go.enabled = true;
     }
 }

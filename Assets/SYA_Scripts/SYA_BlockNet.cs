@@ -141,6 +141,7 @@ public class SYA_BlockNet : MonoBehaviourPun
     public bool no;
     public void OuttroBlock()
     {
+        if(GetComponent<Collider2D>())
         GetComponent<Collider2D>().enabled = false;
         pos = new Vector2(-15, transform.position.y);
         no = true;

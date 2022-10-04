@@ -10,7 +10,7 @@ public class SYA_DestroyZone_Damage : MonoBehaviourPun
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!photonView.IsMine) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         //플레이어 데미지 점프
         if (collision.gameObject.layer == 29)
         {

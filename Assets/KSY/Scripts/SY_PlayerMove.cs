@@ -184,12 +184,14 @@ public class SY_PlayerMove : MonoBehaviourPun
 
     public void JumpOn()
     {
+        if(PhotonNetwork.IsMasterClient&&GetComponent<Rigidbody2D>())
         photonView.RPC("Jump", RpcTarget.All);
     }
 
     [PunRPC]
     public void Jump()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         jumpDir = Vector2.up * jumpForce;
         rb.AddForce(jumpDir, ForceMode2D.Impulse);
     }

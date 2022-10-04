@@ -98,6 +98,12 @@ MonoBehaviour:
   - RpcFindTarget
   - RpcIsJump
   - RpcDestroy
+  - resultUI
+  - RpcNicname
+  - RpcOnMouse
+  - RpcOutMouse
+  - RpcRoundResultUIBlue
+  - RpcRoundResultUIRed
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

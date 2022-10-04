@@ -34,6 +34,7 @@ public class SYA_CardMaker : MonoBehaviourPun
                 if (exran == ran)
                 {
                     i--;
+                    continue;
                 }
                 exran = ran;
                 PhotonNetwork.Instantiate(card[ran].name, cardTr[i].position, cardTr[i].rotation);

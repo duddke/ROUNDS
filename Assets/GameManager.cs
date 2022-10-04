@@ -22,11 +22,10 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     //B라운드 승리 횟수
     public int BroundWinCount = 0;
 
-
-
     //승자 이름 담는 변수
     public string winner;
 
+    public Text NicName;
     //게임 규칙에 따른 상태 
     public enum GameRule
     {
@@ -65,11 +64,12 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             print("게임매니저 삭제");
         }
     }
+    public List<PhotonView> p = new List<PhotonView>();
 
     // Start is called before the first frame update
     void Start()
     {
-
+        PhotonNetwork.Instantiate("P", Vector3.zero, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -96,6 +96,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
                 }
                     break;
             case GameRule.CardSellectRed:
+                if(p.Count>=2)
+                photonView.RPC("RpcNicname", RpcTarget.All, p[0].Owner.NickName);
                 if (redOnClick)
                 {
                     if (!first)
@@ -120,6 +122,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
                 }
                 break;
             case GameRule.CardSellectBlue:
+                if (p.Count >= 2)
+                    photonView.RPC("RpcNicname", RpcTarget.All, p[1].Owner.NickName);
                 if (blueOnClick)
                 {
                     //게임씬으로 전환하기
@@ -186,8 +190,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         //맵생성이 완료되면
         if (GameObject.Find("P1_Pos"))
         {
-            //플레이어 리스트 리셋
             players.Clear();
+            //플레이어 리스트 리셋
             //상태변경
             gameRule = GameRule.GameStart;
         }
@@ -202,6 +206,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
     public void Duel()
     {
+        
         if (players[0].GetComponent<SY_PlayerMove>().state == SY_PlayerMove.State.Die || players[1].GetComponent<SY_PlayerMove>().state == SY_PlayerMove.State.Die)
         {
             if (players[0].GetComponent<SY_PlayerMove>().state == SY_PlayerMove.State.Die)
@@ -218,7 +223,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     public float currentTime = 0;
     public void DuelResult()
     {
-
+        Time.timeScale = 0.1f;
         //1초 뒤
         currentTime += Time.deltaTime;
         if (currentTime > 0.5f)
@@ -265,7 +270,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     {
         //1초 뒤
         currentTime += Time.deltaTime;
-        if (currentTime > 1f)
+        if (currentTime > 0.5f)
         {
             currentTime = 0;
             //누군가 라운드 수가 3이 되면
@@ -329,12 +334,15 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         print("게임 끝남");
         //press to jump
         currentTime += Time.deltaTime;
-        if(currentTime>=2)
+        if(!endJump&&currentTime>=2)
         {
+            currentTime = 0;
+            if(turnJump)
             turnJump.SetActive(true);
+            endJump = true;
         }
     }
-
+    bool endJump;
     [PunRPC]
     void CreatePlayer(Vector3 map)
     {
@@ -352,5 +360,12 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         {
             gameRule = (GameRule)stream.ReceiveNext();
         }
+    }
+
+    [PunRPC]
+    void RpcNicname(string s)
+    {
+        NicName = GameObject.Find("NicName").GetComponent<Text>();
+        NicName.text = s;
     }
 }

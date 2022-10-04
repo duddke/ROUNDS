@@ -13,6 +13,8 @@ public class SYA_ResultUI : MonoBehaviourPun
     //배경지
     public Image bgUI;
 
+    public Text result;
+
     public Image B1;
     public Image B2;
     public Image B3;
@@ -24,28 +26,38 @@ public class SYA_ResultUI : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+
     }
     public float currentTime = 0;
     // Update is called once per frame
     void Update()
     {
         //알피시
-        if (!photonView.IsMine) return;
+        if (photonView.IsMine)
+        {
+            if (GameManager.Instance.gameRule == GameManager.GameRule.Duel)
+            {
+                photonView.RPC("resultUI", RpcTarget.All,
+        GameManager.Instance.players[0].GetComponent<SY_PlayerMove>().nicName,
+        GameManager.Instance.players[1].GetComponent<SY_PlayerMove>().nicName,
+        GameManager.Instance.AroundWinCount, GameManager.Instance.BroundWinCount);
+            }
+        }
         if (GameManager.Instance.gameRule == GameManager.GameRule.DuelResult)
         {
             if (!du)
             {
                 //결과 UI보여주기
                 photonView.RPC("RpcDuelResultUI", RpcTarget.All, GameManager.Instance.BdieCount, GameManager.Instance.AdieCount);
-                du = false;
+                du = true;
             }
         }
         if (GameManager.Instance.gameRule == GameManager.GameRule.RoundResult)
         {
             if (!ra)
             {
-                photonView.RPC("RpcRoundResultUI", RpcTarget.All, GameManager.Instance.AroundWinCount, GameManager.Instance.BroundWinCount);
-                ra = false;
+                RoundResultUI();
+                ra = true;
             }
         }
     }
@@ -78,22 +90,54 @@ public class SYA_ResultUI : MonoBehaviourPun
 
     void RoundResultUI()
     {
-        photonView.RPC("RpcRoundResultUI", RpcTarget.All, GameManager.Instance.AroundWinCount, GameManager.Instance.BroundWinCount);
-        ra = false;
-    }
-
-    [PunRPC]
-    void RpcRoundResultUI(int a, int b)
-    {
-        if(a==2)
+        if (GameManager.Instance.BdieCount >= 2)
         {
-            R3.rectTransform.position = Vector3.Lerp(R3.rectTransform.position, new Vector3(0, 0, 0), Time.deltaTime * 50 );
-            R3.rectTransform.sizeDelta = Vector2.Lerp(R3.rectTransform.sizeDelta, new Vector2(600, 600), Time.deltaTime * 50f);
+            //photonView.RPC("RpcRoundResultUIRed", RpcTarget.All, R3.rectTransform.anchoredPosition, new Vector2 (0,0),
+            //R3.rectTransform.sizeDelta, new Vector2(0,0));
+            photonView.RPC("RpcRoundResultUIRed", RpcTarget.All, R3.rectTransform.sizeDelta, new Vector2(600, 600));
+            R3.rectTransform.anchoredPosition = Vector2.Lerp(R3.rectTransform.anchoredPosition, new Vector2(0, 0), Time.deltaTime * 300);
+            B2.enabled = false;
+            B1.enabled = false;
         }
         else
         {
-            B3.rectTransform.position = Vector3.Lerp(B3.rectTransform.position, new Vector3(0, 0, 0), Time.deltaTime * 50f);
-            B3.rectTransform.sizeDelta = Vector2.Lerp(B3.rectTransform.sizeDelta, new Vector2(600, 600), Time.deltaTime * 50f);
+            //photonView.RPC("RpcRoundResultUIBlue", RpcTarget.All, B3.rectTransform.anchoredPosition, new Vector2(0, 0),
+            //B3.rectTransform.sizeDelta, new Vector2(0, 0));
+            photonView.RPC("RpcRoundResultUIBlue", RpcTarget.All, B3.rectTransform.sizeDelta, new Vector2(600, 600));
+            B3.rectTransform.anchoredPosition = Vector2.Lerp(B3.rectTransform.anchoredPosition, new Vector2(0, 0), Time.deltaTime * 300);
+            R2.enabled = false;
+            R1.enabled = false;
         }
     }
+
+    bool next;
+    bool nextnext;
+    [PunRPC]
+    void RpcRoundResultUIRed( Vector2 size, Vector2 size2)
+    {
+        R3.rectTransform.sizeDelta = Vector2.Lerp(size, size2, Time.deltaTime * 200);
+
+        B2.enabled = false;
+        B1.enabled = false;
+    }
+
+    [PunRPC]
+    void RpcRoundResultUIBlue(Vector2 size, Vector2 size2)
+    {
+        B3.rectTransform.sizeDelta = Vector2.Lerp(size, size2, Time.deltaTime * 200);
+
+        R2.enabled = false;
+        R1.enabled = false;
+    }
+
+    [PunRPC]
+    void resultUI(string red, string blue, int c, int d)
+    {
+        result.text = red + "\n"
++ c
++ "\nVS\n"
++ d + "\n"
++ blue;
+    }
+
 }
